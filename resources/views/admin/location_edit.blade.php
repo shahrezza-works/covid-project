@@ -137,6 +137,19 @@
             </select>
         </div>
     </div>
+    <div class="row mb-2">
+        <div class="col-md-2">
+            <label>Type <span class="text-red">*</span></label>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" name="type" id="type" required>
+                <option value="">Pilih...</option>
+                <option value="0" {{ $type == 0 ? 'selected' : '' }}>On-Site Verification</option>
+                <option value="1" {{ $type == 1 ? 'selected' : '' }}>Self Declaration</option>
+            </select>
+        </div>
+    </div>
+
     <button class="btn btn-success" type="submit">Save</button>
 </form>
 

@@ -112,6 +112,7 @@ class LocationController extends Controller
         $kawasan = $request->input('kawasan');
         $bandar = $request->input('bandar');
         $negeri = $request->input('negeri');
+        $type = $request->input('type');
         $date = date(now());
 
         $record = Location::insert(
@@ -127,6 +128,7 @@ class LocationController extends Controller
                 'kawasan' => $kawasan,
                 'bandar' => $bandar,
                 'negeri' => $negeri,
+                'type' => $type,
                 'user_id' => $user_id,
                 'created_at' => $date,
                 'updated_at' => $date
@@ -157,6 +159,7 @@ class LocationController extends Controller
         $variables['kawasan'] = $data->kawasan;
         $variables['bandar'] = $data->bandar;
         $variables['negeri_'] = $data->negeri;
+        $variables['type'] = $data->type;
 
         $variables['kategori_1'] = $this->kategori1_list();
         $variables['kategori_2'] = $this->kategori2_list();

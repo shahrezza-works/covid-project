@@ -142,12 +142,12 @@
         <div class="col-md-3">
             <select class="form-control" name="type" id="type" required>
                 <option value="">Pilih...</option>
-                <option value="1">On-Site Verification</option>
-                <option value="2">Self Declaration</option>
+                <option value="0">On-Site Verification</option>
+                <option value="1">Self Declaration</option>
             </select>
         </div>
     </div>
-    
+
     <button class="btn btn-success" type="submit">Save</button>
 </form>
 

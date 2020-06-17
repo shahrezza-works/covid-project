@@ -153,6 +153,11 @@
 
         <h5>Nombor Telefon / Mobile Number  <span style="color: red;">*</span></h5>
         <input type="text" name="no_tel" minlength="10" maxlength="20" required>
+
+        @if ($type == 1)
+        <h5>Suhu / Temperature<span style="color: red;">*</span></h5>
+        <input type="number" name="suhu" step="0.01" max="50" class="col-md-2" required> 
+        @endif
         <br>
         <br>
 

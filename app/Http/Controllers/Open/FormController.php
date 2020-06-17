@@ -23,6 +23,7 @@ class FormController extends Controller
         $variables['nama_premis'] = $location->nama_premis;
         $variables['nama_bangunan'] = $location->nama_bangunan;
         $variables['kawasan'] = $location->kawasan;
+        $variables['type'] = $location->type; //either self declaration / front-liner will keyin this
         // exit;
         return view('open.form', $variables);
     }
@@ -31,7 +32,7 @@ class FormController extends Controller
     {
         // var_dump($location_id);
         // echo '<pre>';
-        // var_dump($request->input()); 
+        // var_dump($request->input());
         // echo '</pre>';
         // exit;
 
@@ -48,6 +49,7 @@ class FormController extends Controller
         $id = $location->id;
         $nama = $request->input('nama');
         $no_tel = $request->input('no_tel');
+        $suhu = $request->input('suhu');
         $verify = $request->input('verify');
         $agree = $request->input('agree');
         $date = date(now());
@@ -66,6 +68,7 @@ class FormController extends Controller
                 'phone' => $no_tel,
                 'verify' => $verify,
                 'agree' => $agree,
+                'suhu' => $suhu,
                 'created_at' => $date,
                 'updated_at' => $date,
             ]
