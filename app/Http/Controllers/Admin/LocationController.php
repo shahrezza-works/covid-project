@@ -171,10 +171,10 @@ class LocationController extends Controller
     public function update(Request $request)
     {
         $user_id = Auth::user()->id;
-        // echo '<pre>';
-        // var_dump($request->input()); 
-        // echo '</pre>';
-        // exit;
+        echo '<pre>';
+        var_dump($request->input()); 
+        echo '</pre>';
+        exit;
         $location_id = $request->input('location_id');
         $nama_premis = $request->input('nama_premis');
         $kategori_1 = $request->input('kategori_1');
@@ -187,6 +187,7 @@ class LocationController extends Controller
         $kawasan = $request->input('kawasan');
         $bandar = $request->input('bandar');
         $negeri = $request->input('negeri');
+        $type = $request->input('type');
         $date = date(now());
 
         $record = Location::where('id', $location_id)
@@ -195,7 +196,7 @@ class LocationController extends Controller
                 'nama_bangunan'=>$nama_bangunan, 'no_jalan'=>$no_jalan,
                 'nama_jalan'=>$nama_jalan, 'poskod'=>$poskod,
                 'kawasan'=>$kawasan, 'bandar'=>$bandar,
-                'negeri'=>$negeri, 'updated_at'=>$date
+                'negeri'=>$negeri, 'type'=>$type, 'updated_at'=>$date
             ]);
 
         if($record){
