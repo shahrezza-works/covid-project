@@ -171,10 +171,10 @@ class LocationController extends Controller
     public function update(Request $request)
     {
         $user_id = Auth::user()->id;
-        echo '<pre>';
-        var_dump($request->input()); 
-        echo '</pre>';
-        exit;
+        // echo '<pre>';
+        // var_dump($request->input()); 
+        // echo '</pre>';
+        // exit;
         $location_id = $request->input('location_id');
         $nama_premis = $request->input('nama_premis');
         $kategori_1 = $request->input('kategori_1');
