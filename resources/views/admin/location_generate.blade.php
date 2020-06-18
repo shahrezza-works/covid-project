@@ -76,7 +76,7 @@
 
             setTimeout(function(){
                 window.close();
-            }, 100)
+            }, 2000)
         })
     </script>
     
