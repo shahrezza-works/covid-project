@@ -60,7 +60,11 @@
                 <tr>
                     <th></th>
                     <th>Nama</th>
-                    <th>No. Telefon</th>
+                    <th> @if ($borang_type == 0)
+                        No. Pekerja
+                    @else
+                        No. Telefon
+                    @endif </th>
                     <th>Suhu (&#176;C)</th>
                     <th>Action</th>
                     {{-- 
@@ -76,8 +80,16 @@
                 @foreach($table_data as $data)
                 <tr>
                     <td></td>
-                    <td>{{ $data->name }}</td>
-                    <td>{{ $data->phone }}</td>
+                    <td>@if ($borang_type == 0)
+                        {{ $data->nama }}
+                    @else
+                        {{ $data->name }}
+                    @endif</td>
+                    <td>@if ($borang_type == 0)
+                        {{ $data->no_pekerja }}
+                    @else
+                        {{ $data->phone }}
+                    @endif</td>
                     <td>{{ $data->suhu }}</td>
                     <td>
                         <button class="btn btn-secondary" onclick="updateSuhu({{ $data->id }})">update</button>
@@ -98,7 +110,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form method="get" action="/temperature/update">
+        <form method="get" action="{{ ($borang_type == 0) ? '/temperature/update_staff' : '/temperature/update' }}">
             <div id="location-details" class="modal-body">
                 <input type="hidden" name="respon_id" id="respon_id">
                 {{ csrf_field() }}
@@ -114,7 +126,11 @@
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <label class="font-weight-bold">No Telefon</label>
+                        <label class="font-weight-bold">@if ($borang_type)
+                        No Pekerja
+                        @else
+                        No Telefon
+                        @endif</label>
                     </div>
                     <div>
                         <span id="no_tel"></span>
@@ -160,7 +176,23 @@
                 } );
             } ).draw();
         })
-
+        <?php if($borang_type == 0){ ?>
+        function updateSuhu(respon)
+        {
+            $.get('/temperature/details_staff/?rid='+respon, function(res){
+                // console.log(res);
+                if(res.status){
+                    $('#respon_id').val(res.data[0].id);
+                    $('#nama_pelawat').text(res.data[0].nama);
+                    $('#no_tel').text(res.data[0].no_pekerja);
+                    $('#suhu').val(res.data[0].suhu);
+                    $('#updateModal').modal({backdrop: 'static', keyboard: false})
+                }else{
+                    alert(res.message);
+                }
+            })
+        }
+        <?php }else{ ?>
         function updateSuhu(respon)
         {
             $.get('/temperature/details?rid='+respon, function(res){
@@ -176,6 +208,7 @@
                 }
             })
         }
+        <?php } ?>
 
     </script>
 @endsection

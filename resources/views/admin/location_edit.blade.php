@@ -137,6 +137,20 @@
             </select>
         </div>
     </div>
+
+    <div class="row mb-2">
+        <div class="col-md-2">
+            <label>Jenis Borang <span class="text-red">*</span></label>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" name="borang" id="borang" required>
+                <option value="">Pilih...</option>
+                <option value="0" {{ $borang == 0 ? 'selected' : '' }}>Anggota Kerja</option>
+                <option value="1" {{ $borang == 1 ? 'selected' : '' }}>Pelawat</option>
+            </select>
+        </div>
+    </div>
+
     <div class="row mb-2">
         <div class="col-md-2">
             <label>Type <span class="text-red">*</span></label>

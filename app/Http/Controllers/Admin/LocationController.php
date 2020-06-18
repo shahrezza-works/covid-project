@@ -112,6 +112,7 @@ class LocationController extends Controller
         $kawasan = $request->input('kawasan');
         $bandar = $request->input('bandar');
         $negeri = $request->input('negeri');
+        $borang = $request->input('borang');
         $type = $request->input('type');
         $date = date(now());
 
@@ -128,6 +129,7 @@ class LocationController extends Controller
                 'kawasan' => $kawasan,
                 'bandar' => $bandar,
                 'negeri' => $negeri,
+                'borang' => $borang,
                 'type' => $type,
                 'user_id' => $user_id,
                 'created_at' => $date,
@@ -159,6 +161,7 @@ class LocationController extends Controller
         $variables['kawasan'] = $data->kawasan;
         $variables['bandar'] = $data->bandar;
         $variables['negeri_'] = $data->negeri;
+        $variables['borang'] = $data->borang;
         $variables['type'] = $data->type;
 
         $variables['kategori_1'] = $this->kategori1_list();
@@ -187,6 +190,7 @@ class LocationController extends Controller
         $kawasan = $request->input('kawasan');
         $bandar = $request->input('bandar');
         $negeri = $request->input('negeri');
+        $borang = $request->input('borang');
         $type = $request->input('type');
         $date = date(now());
 
@@ -196,7 +200,8 @@ class LocationController extends Controller
                 'nama_bangunan'=>$nama_bangunan, 'no_jalan'=>$no_jalan,
                 'nama_jalan'=>$nama_jalan, 'poskod'=>$poskod,
                 'kawasan'=>$kawasan, 'bandar'=>$bandar,
-                'negeri'=>$negeri, 'type'=>$type, 'updated_at'=>$date
+                'negeri'=>$negeri, 'borang'=>$borang,
+                'type'=>$type, 'updated_at'=>$date
             ]);
 
         if($record){
@@ -269,7 +274,12 @@ class LocationController extends Controller
                 // $urlTesting = $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
                 $base_url = URL::to('/');
 
-                $urlforQR = urlencode($base_url.'/form/'.md5($location_id));
+                if($data['borang'] == 0)
+                {
+                    $urlforQR = urlencode($base_url.'/form/staff/'.md5($location_id));
+                }else{
+                    $urlforQR = urlencode($base_url.'/form/'.md5($location_id));
+                }
 
                 $main_url = "https://chart.googleapis.com/chart";
                 $chart_type = "cht=qr";
@@ -329,12 +339,17 @@ class LocationController extends Controller
         // exit;
         $file_name = date('Y-m-d-',time()).str_replace(' ', '_', $location_details['nama_premis']);
 
+        $record_2 = DB::table('respon_staff')
+        ->leftJoin('location', 'location.id', 'respon_staff.form_id')
+        ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.suhu', 'respon_staff.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
+        ->whereRaw('md5(form_id) = "'.$location_id.'"');
+
         $record = DB::table('respon')
             ->leftJoin('location', 'location.id', 'respon.form_id')
-            ->select('respon.id', 'respon.name', 'respon.phone', 'respon.suhu', 'respon.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
+            ->select('respon.id', 'respon.name', 'respon.phone AS no_pekerja/phone', 'respon.suhu', 'respon.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
             ->whereRaw('md5(form_id) = "'.$location_id.'"')
+            ->unionAll($record_2)
             ->get();
-            
 
         // echo '<pre>';
         // var_dump($record); 

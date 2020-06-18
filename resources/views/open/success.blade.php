@@ -49,6 +49,11 @@
             <h4 class="mt-4">Nombor telefon yang didaftarkan:</h4>
             <h3 class="text-grey">{{ $no_tel }}</h3>
             @endif
+
+            @if (!empty($no_pekerja))
+            <h4 class="mt-4">Nombor pekerja yang didaftarkan:</h4>
+            <h3 class="text-grey">{{ $no_pekerja }}</h3>
+            @endif
         </center>
 
         <div class="row">

@@ -135,6 +135,20 @@
             </select>
         </div>
     </div>
+
+    <div class="row mb-2">
+        <div class="col-md-2">
+            <label>Jenis Borang <span class="text-red">*</span></label>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" name="borang" id="borang" required>
+                <option value="">Pilih...</option>
+                <option value="0">Anggota Kerja</option>
+                <option value="1">Pelawat</option>
+            </select>
+        </div>
+    </div>
+
     <div class="row mb-2">
         <div class="col-md-2">
             <label>Type <span class="text-red">*</span></label>
@@ -146,7 +160,15 @@
                 <option value="1">Self Declaration</option>
             </select>
         </div>
+        <div class="col-md-5">
+            <ul>
+                <li>On-Site Verification: Suhu akan diperiksa oleh pegawai yang bertugas dan petugas akan merekodkan suhu ke dalam sistem.</li>
+                <li>Self Declaration: Suhu akan diperiksa oleh pegawai yang bertugas dan responden akan merekodkan suhu di dalam borang pendaftaran.</li>
+            </ul>
+        </div>
     </div>
+
+    
 
     <button class="btn btn-success" type="submit">Save</button>
 </form>

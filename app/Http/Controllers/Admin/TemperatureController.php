@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Modal\Location;
 use App\Modal\Respon;
+use App\Modal\Respon_staff;
 use Auth;
 use DB;
 
@@ -25,6 +26,7 @@ class TemperatureController extends Controller
         $variables['location_select'] = $request->get('location_selected');
         $variables['date_select'] = date('Y-m-d');
         $variables['table_data'] = array();
+        $variables['borang_type'] = 0;
         return view('admin.respon', $variables);
     }
 
@@ -41,6 +43,7 @@ class TemperatureController extends Controller
         $variables['location_select'] = $request->get('location_selected');
         $variables['date_select'] = date('Y-m-d');
         $variables['table_data'] = array();
+        $variables['borang_type'] = 0;
         return view('admin.respon', $variables);
     }
 
@@ -58,7 +61,7 @@ class TemperatureController extends Controller
             $user_id = Auth::user()->id;
             $location = Location::where([['remove','=','0'],['user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
         }
-        // var_dump($location); exit;
+    
         $variables['location'] = $location;
         $variables['location_select'] = $location_select;
 
@@ -70,11 +73,19 @@ class TemperatureController extends Controller
             }
         }
 
-        $data = DB::table('respon')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('name','asc')->get();
+        $location_data_based_on_select = Location::where([['remove','=','0'],['id','=',$location_select]])->orderBy('nama_premis','asc')->first();
+        $variables['borang_type'] = $location_data_based_on_select->borang;
+
+        if($location_data_based_on_select->borang == 0){
+            $data = DB::table('respon_staff')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('nama','asc')->get();
+        }else{
+            $data = DB::table('respon')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('name','asc')->get();
+        }
+    
         // var_dump($data); exit;
         $variables['table_data'] = $data;
         $variables['date_select'] = $tarikh;
-        // return view('temperature');
+
         return view('admin.respon', $variables);
     }
 
@@ -107,6 +118,43 @@ class TemperatureController extends Controller
         $date = date(now());
 
         $record = Respon::where('id', $respon_id)->update(['suhu'=>$suhu, 'updated_at'=>$date]);
+
+        if($record){
+            return redirect('/temperature/filter?_token='.$_token.'&location_select='.$location_select.'&tarikh='.$tarikh)->with('status','Successful update!');
+        }else{
+            return redirect('/temperature/filter?_token='.$_token.'&location_select='.$location_select.'&tarikh='.$tarikh)->with('status_error','Failed to update!');
+        }
+    }
+
+    public function details_staff(Request $request)
+    {
+        $respon_id = $request->get('rid');
+
+        if(empty($respon_id)){
+            return array('status'=>false,'message'=>'Failed to get information!');
+        }
+
+        $data = DB::table('respon_staff')->whereRaw('id = '.$respon_id)->get();
+
+        if(empty($data)){
+            return array('status'=>false,'message'=>'Record not exist!');
+        }
+
+        return array('status'=>true, 'message'=>'Successful!', 'data'=>$data);
+    }
+
+    public function update_staff(Request $request)
+    {  
+        // var_dump($request->input()); exit;
+
+        $respon_id = $request->get('respon_id');
+        $_token = $request->get('_token');
+        $location_select = $request->get('location_select');
+        $tarikh = $request->get('tarikh');
+        $suhu = $request->get('suhu');
+        $date = date(now());
+
+        $record = Respon_staff::where('id', $respon_id)->update(['suhu'=>$suhu, 'updated_at'=>$date]);
 
         if($record){
             return redirect('/temperature/filter?_token='.$_token.'&location_select='.$location_select.'&tarikh='.$tarikh)->with('status','Successful update!');
