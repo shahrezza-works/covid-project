@@ -34,6 +34,11 @@
     <center>
         {{-- <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" width="300px"> --}}
         {{-- <img src="/assets-admin/img/ilsas-logo.png" alt="Company Logo" width="400px"> --}}
+        <h1 class="mt-4 mb-4" style="font-weight: 600;">@if ($data->borang == 0)
+            ANGGOTA KERJA
+        @else
+            PELAWAT
+        @endif</h1>
         <h2 style="margin-top:1.5em;font-weight:600;color:#170c79;">SCAN WITH YOUR MOBILE PHONE<br>TO CHECK IN</h2>
         <img src="{{ $QRimage }}" alt="QR code image" style="border-style: dotted;border-color:#6e0303;" width="400">
 
