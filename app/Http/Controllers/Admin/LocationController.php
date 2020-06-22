@@ -277,8 +277,10 @@ class LocationController extends Controller
                 if($data['borang'] == 0)
                 {
                     $urlforQR = urlencode($base_url.'/form/staff/'.md5($location_id));
-                }else{
+                }else if($data['borang'] == 1){
                     $urlforQR = urlencode($base_url.'/form/'.md5($location_id));
+                }else{
+                    $urlforQR = urlencode($base_url.'/form/kontraktor/'.md5($location_id));
                 }
 
                 $main_url = "https://chart.googleapis.com/chart";
@@ -332,25 +334,35 @@ class LocationController extends Controller
     public function getdata($location_id)
     {
         $location_details = Location::whereRaw('md5(id) = "'.$location_id.'"')->first();
+        $borang_type = $location_details['borang'];
 
         // echo '<pre>';
-        // var_dump(str_replace(' ', '_', $location_details['nama_premis']));
+        // var_dump($location_details);
         // echo '</pre>'; 
         // exit;
+        
         $file_name = date('Y-m-d-',time()).str_replace(' ', '_', $location_details['nama_premis']);
 
-        $record_2 = DB::table('respon_staff')
-        ->leftJoin('location', 'location.id', 'respon_staff.form_id')
-        ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.suhu', 'respon_staff.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
-        ->whereRaw('md5(form_id) = "'.$location_id.'"');
-
-        $record = DB::table('respon')
+        if($borang_type == 2){
+            $record = DB::table('respon_kontraktor')
+            ->leftJoin('location', 'location.id', 'respon_kontraktor.form_id')
+            ->select('respon_kontraktor.id', 'respon_kontraktor.nama', 'respon_kontraktor.no_tel', 'respon_kontraktor.suhu', 'respon_kontraktor.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
+            ->whereRaw('md5(form_id) = "'.$location_id.'"')
+            ->get();
+        }elseif($borang_type == 0){
+            $record = DB::table('respon')
             ->leftJoin('location', 'location.id', 'respon.form_id')
             ->select('respon.id', 'respon.name', 'respon.phone AS no_pekerja/phone', 'respon.suhu', 'respon.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
             ->whereRaw('md5(form_id) = "'.$location_id.'"')
-            ->unionAll($record_2)
             ->get();
-
+        }else{
+            $record = DB::table('respon_staff')
+            ->leftJoin('location', 'location.id', 'respon_staff.form_id')
+            ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.suhu', 'respon_staff.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
+            ->whereRaw('md5(form_id) = "'.$location_id.'"')
+            ->get();
+        }
+        
         // echo '<pre>';
         // var_dump($record); 
         // echo '</pre>'; 

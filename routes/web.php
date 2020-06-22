@@ -21,6 +21,8 @@ Route::get('/form/receipt/summary', 'Open\FormController@receipt');
 Route::get('/form/staff/{unique_id}', 'Open\FormController@staff_form');
 Route::post('/form/staff/submit/{unique_id}', 'Open\FormController@staff_submit');
 Route::get('/form/receipt/staff/summary', 'Open\FormController@receipt_staff');
+Route::get('/form/kontraktor/{unique_id}', 'Open\FormController@kontraktor_form');
+Route::post('/form/kontraktor/submit/{unique_id}', 'Open\FormController@kontraktor_submit');
 
 Auth::routes();
 
@@ -35,6 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/temperature/update', 'Admin\TemperatureController@update');
     Route::get('/temperature/details_staff', 'Admin\TemperatureController@details_staff');
     Route::get('/temperature/update_staff', 'Admin\TemperatureController@update_staff');
+    Route::get('/temperature/details_kontraktor', 'Admin\TemperatureController@details_kontraktor');
+    Route::get('/temperature/update_kontraktor', 'Admin\TemperatureController@update_kontraktor');
     
     Route::get('/location', 'Admin\LocationController@main');
     Route::get('/location/single/{location_id}', 'Admin\LocationController@single_details');

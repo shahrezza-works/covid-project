@@ -145,6 +145,7 @@
                 <option value="">Pilih...</option>
                 <option value="0">Anggota Kerja</option>
                 <option value="1">Pelawat</option>
+                <option value="2">Kontraktor</option>
             </select>
         </div>
     </div>

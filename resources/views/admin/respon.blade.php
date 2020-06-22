@@ -80,13 +80,15 @@
                 @foreach($table_data as $data)
                 <tr>
                     <td></td>
-                    <td>@if ($borang_type == 0)
+                    <td>@if ($borang_type == 0 || $borang_type == 2)
                         {{ $data->nama }}
                     @else
                         {{ $data->name }}
                     @endif</td>
                     <td>@if ($borang_type == 0)
                         {{ $data->no_pekerja }}
+                    @elseif ($borang_type == 2)
+                        {{ $data->no_tel }}
                     @else
                         {{ $data->phone }}
                     @endif</td>
@@ -110,7 +112,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form method="get" action="{{ ($borang_type == 0) ? '/temperature/update_staff' : '/temperature/update' }}">
+        <form method="get" action="{{ ($borang_type == 0) ? '/temperature/update_staff' : (($borang_type == 2) ? '/temperature/update_kontraktor' : '/temperature/update') }}">
             <div id="location-details" class="modal-body">
                 <input type="hidden" name="respon_id" id="respon_id">
                 {{ csrf_field() }}
@@ -126,7 +128,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <label class="font-weight-bold">@if ($borang_type)
+                        <label class="font-weight-bold">@if ($borang_type == 0)
                         No Pekerja
                         @else
                         No Telefon
@@ -178,7 +180,7 @@
         })
         <?php if($borang_type == 0){ ?>
         function updateSuhu(respon)
-        {
+        {//anggota kerja
             $.get('/temperature/details_staff/?rid='+respon, function(res){
                 // console.log(res);
                 if(res.status){
@@ -192,9 +194,25 @@
                 }
             })
         }
+        <?php }elseif($borang_type == 2){ ?>
+        function updateSuhu(respon)
+        {//kontraktor
+            $.get('/temperature/details_kontraktor/?rid='+respon, function(res){
+                // console.log(res);
+                if(res.status){
+                    $('#respon_id').val(res.data[0].id);
+                    $('#nama_pelawat').text(res.data[0].nama);
+                    $('#no_tel').text(res.data[0].no_tel);
+                    $('#suhu').val(res.data[0].suhu);
+                    $('#updateModal').modal({backdrop: 'static', keyboard: false})
+                }else{
+                    alert(res.message);
+                }
+            })
+        }  
         <?php }else{ ?>
         function updateSuhu(respon)
-        {
+        {//pelawat
             $.get('/temperature/details?rid='+respon, function(res){
                 // console.log(res);
                 if(res.status){

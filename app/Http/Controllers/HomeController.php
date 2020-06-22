@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Modal\Location;
 use App\Modal\Respon;
 use App\Modal\Respon_staff;
+use App\Modal\Respon_kontraktor;
 use Auth;
 use DB;
 
@@ -24,7 +25,7 @@ class HomeController extends Controller
     public function dashboard()
     {
         if(Auth::user()->usertype == -1){
-            $respon = Respon::all()->count() + Respon_staff::all()->count();
+            $respon = Respon::all()->count() + Respon_staff::all()->count() + Respon_kontraktor::all()->count();
             $unique_respon = DB::table('respon')
                 ->select('phone')
                 ->distinct('phone')
@@ -32,14 +33,21 @@ class HomeController extends Controller
                 DB::table('respon_staff')
                 ->select('no_pekerja')
                 ->distinct('no_pekerja')
+                ->get()->count() +
+                DB::table('respon_kontraktor')
+                ->select('no_tel')
+                ->distinct('no_tel')
                 ->get()->count();
 
             $suhu_normal = DB::select('SELECT SUM(MAIN.count) AS count FROM (select count(respon.id) AS count from respon where respon.suhu is not null and respon.suhu < 37.5
-            UNION ALL select count(respon_staff.id) AS count from respon_staff where respon_staff.suhu is not null and respon_staff.suhu < 37.5) MAIN');
+            UNION ALL select count(respon_staff.id) AS count from respon_staff where respon_staff.suhu is not null and respon_staff.suhu < 37.5 
+            UNION ALL select count(respon_kontraktor.id) AS count from respon_kontraktor where respon_kontraktor.suhu is not null and respon_kontraktor.suhu < 37.5) MAIN');
             $suhu_xnormal = DB::select('SELECT SUM(MAIN.count) AS count FROM (select count(respon.id) AS count from respon where respon.suhu is not null and respon.suhu >= 37.5
-            UNION ALL select count(respon_staff.id) AS count from respon_staff where respon_staff.suhu is not null and respon_staff.suhu >= 37.5) MAIN');
+            UNION ALL select count(respon_staff.id) AS count from respon_staff where respon_staff.suhu is not null and respon_staff.suhu >= 37.5 
+            UNION ALL select count(respon_kontraktor.id) AS count from respon_kontraktor where respon_kontraktor.suhu is not null and respon_kontraktor.suhu >= 37.5) MAIN');
             $suhu_null = DB::select('SELECT SUM(MAIN.count) AS count FROM (select count(respon.id) AS count from respon where respon.suhu is null
-            UNION ALL select count(respon_staff.id) AS count from respon_staff where respon_staff.suhu is null) MAIN');
+            UNION ALL select count(respon_staff.id) AS count from respon_staff where respon_staff.suhu is null
+            UNION ALL select count(respon_kontraktor.id) AS count from respon_kontraktor where respon_kontraktor.suhu is null) MAIN');
             // var_dump($suhu_xnormal); exit;
         }else{
             $user_id = Auth::user()->id;
@@ -51,6 +59,10 @@ class HomeController extends Controller
                 DB::table('respon_staff')
                 ->leftJoin('location', 'location.id', 'respon_staff.form_id')
                 ->where([['remove','=','0'],['user_id', '=', $user_id]])
+                ->get()->count() +
+                DB::table('respon_kontraktor')
+                ->leftJoin('location', 'location.id', 'respon_kontraktor.form_id')
+                ->where([['remove','=','0'],['user_id', '=', $user_id]])
                 ->get()->count();
             
             $unique_respon = DB::table('respon')
@@ -64,14 +76,23 @@ class HomeController extends Controller
                 ->leftJoin('location', 'location.id', 'respon_staff.form_id')
                 ->where([['remove','=','0'],['user_id', '=', $user_id]])
                 ->distinct('no_pekerja')
+                ->get()->count() + 
+                DB::table('respon_kontraktor')
+                ->select('no_tel')
+                ->leftJoin('location', 'location.id', 'respon_kontraktor.form_id')
+                ->where([['remove','=','0'],['user_id', '=', $user_id]])
+                ->distinct('no_tel')
                 ->get()->count();
 
             $suhu_normal = DB::select('SELECT SUM(MAIN.count) AS count FROM (select count(respon.id) AS count from respon left join location on (location.id = respon.form_id) where respon.suhu is not null and respon.suhu < 37.5 and user_id = '.$user_id.
-            ' UNION ALL select count(respon_staff.id) AS count from respon_staff left join location on (location.id = respon_staff.form_id) where respon_staff.suhu is not null and respon_staff.suhu < 37.5 and user_id = '.$user_id.') MAIN');
+            ' UNION ALL select count(respon_staff.id) AS count from respon_staff left join location on (location.id = respon_staff.form_id) where respon_staff.suhu is not null and respon_staff.suhu < 37.5 and user_id = '.$user_id.
+            ' UNION ALL select count(respon_kontraktor.id) AS count from respon_kontraktor left join location on (location.id = respon_kontraktor.form_id) where respon_kontraktor.suhu is not null and respon_kontraktor.suhu < 37.5 and user_id = '.$user_id.' ) MAIN');
             $suhu_xnormal = DB::select('SELECT SUM(MAIN.count) AS count FROM (select count(respon.id) AS count from respon left join location on (location.id = respon.form_id) where respon.suhu is not null and respon.suhu >= 37.5 and user_id = '.$user_id.
-            ' UNION ALL select count(respon_staff.id) AS count from respon_staff left join location on (location.id = respon_staff.form_id) where respon_staff.suhu is not null and respon_staff.suhu >= 37.5 and user_id = '.$user_id.') MAIN');
+            ' UNION ALL select count(respon_staff.id) AS count from respon_staff left join location on (location.id = respon_staff.form_id) where respon_staff.suhu is not null and respon_staff.suhu >= 37.5 and user_id = '.$user_id.
+            ' UNION ALL select count(respon_kontraktor.id) AS count from respon_kontraktor left join location on (location.id = respon_kontraktor.form_id) where respon_kontraktor.suhu is not null and respon_kontraktor.suhu >= 37.5 and user_id = '.$user_id.') MAIN');
             $suhu_null = DB::select('SELECT SUM(MAIN.count) AS count FROM (select count(respon.id) AS count from respon left join location on (location.id = respon.form_id) where respon.suhu is null and user_id = '.$user_id.
-            ' UNION ALL select count(respon_staff.id) AS count from respon_staff left join location on (location.id = respon_staff.form_id) where respon_staff.suhu is null and user_id = '.$user_id.') MAIN');
+            ' UNION ALL select count(respon_staff.id) AS count from respon_staff left join location on (location.id = respon_staff.form_id) where respon_staff.suhu is null and user_id = '.$user_id.
+            ' UNION ALL select count(respon_kontraktor.id) AS count from respon_kontraktor left join location on (location.id = respon_kontraktor.form_id) where respon_kontraktor.suhu is null and user_id = '.$user_id.') MAIN');
             // var_dump($suhu_normal); exit;
         }
         // var_dump($respon); exit;

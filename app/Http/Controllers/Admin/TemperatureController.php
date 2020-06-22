@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Modal\Location;
 use App\Modal\Respon;
 use App\Modal\Respon_staff;
+use App\Modal\Respon_kontraktor;
 use Auth;
 use DB;
 
@@ -78,8 +79,10 @@ class TemperatureController extends Controller
 
         if($location_data_based_on_select->borang == 0){
             $data = DB::table('respon_staff')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('nama','asc')->get();
-        }else{
+        }else if($location_data_based_on_select->borang == 1){
             $data = DB::table('respon')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('name','asc')->get();
+        }else{
+            $data = DB::table('respon_kontraktor')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('nama','asc')->get();
         }
     
         // var_dump($data); exit;
@@ -155,6 +158,43 @@ class TemperatureController extends Controller
         $date = date(now());
 
         $record = Respon_staff::where('id', $respon_id)->update(['suhu'=>$suhu, 'updated_at'=>$date]);
+
+        if($record){
+            return redirect('/temperature/filter?_token='.$_token.'&location_select='.$location_select.'&tarikh='.$tarikh)->with('status','Successful update!');
+        }else{
+            return redirect('/temperature/filter?_token='.$_token.'&location_select='.$location_select.'&tarikh='.$tarikh)->with('status_error','Failed to update!');
+        }
+    }
+
+    public function details_kontraktor(Request $request)
+    {
+        $respon_id = $request->get('rid');
+
+        if(empty($respon_id)){
+            return array('status'=>false,'message'=>'Failed to get information!');
+        }
+
+        $data = DB::table('respon_kontraktor')->whereRaw('id = '.$respon_id)->get();
+
+        if(empty($data)){
+            return array('status'=>false,'message'=>'Record not exist!');
+        }
+
+        return array('status'=>true, 'message'=>'Successful!', 'data'=>$data);
+    }
+
+    public function update_kontraktor(Request $request)
+    {  
+        // var_dump($request->input()); exit;
+
+        $respon_id = $request->get('respon_id');
+        $_token = $request->get('_token');
+        $location_select = $request->get('location_select');
+        $tarikh = $request->get('tarikh');
+        $suhu = $request->get('suhu');
+        $date = date(now());
+
+        $record = Respon_kontraktor::where('id', $respon_id)->update(['suhu'=>$suhu, 'updated_at'=>$date]);
 
         if($record){
             return redirect('/temperature/filter?_token='.$_token.'&location_select='.$location_select.'&tarikh='.$tarikh)->with('status','Successful update!');

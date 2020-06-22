@@ -36,6 +36,8 @@
         {{-- <img src="/assets-admin/img/ilsas-logo.png" alt="Company Logo" width="400px"> --}}
         <h1 class="mt-4 mb-4" style="font-weight: 600;">@if ($data->borang == 0)
             ANGGOTA KERJA
+        @elseif ($data->borang == 2)
+            KONTRAKTOR
         @else
             PELAWAT
         @endif</h1>

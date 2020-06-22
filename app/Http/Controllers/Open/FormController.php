@@ -8,6 +8,7 @@ use App\Modal\Location;
 use App\Modal\Respon;
 use App\Modal\Jabatan;
 use App\Modal\Respon_staff;
+use App\Modal\Respon_kontraktor;
 use DB;
 
 class FormController extends Controller
@@ -234,5 +235,102 @@ class FormController extends Controller
         $variables['no_pekerja'] = $no_pekerja;
         
         return view('open.success', $variables);
+    }
+
+    public function kontraktor_form($unique_id)
+    {
+        $location = DB::table('location')->whereRaw('md5(id) = "'.$unique_id.'" AND remove = 0')->first();
+
+        if(empty($location)){
+            return view('open.errorremove');
+        }
+        
+        // echo '<pre>';
+        // var_dump($jabatan);
+        // echo '</pre>';
+        // exit;
+
+        $variables['location_id'] = $location->id;
+        $variables['nama_premis'] = $location->nama_premis;
+        $variables['nama_bangunan'] = $location->nama_bangunan;
+        $variables['kawasan'] = $location->kawasan;
+        $variables['type'] = $location->type; //either self declaration / front-liner will keyin this
+        // exit;
+        return view('open.formkontraktor', $variables);
+    }
+
+    public function kontraktor_submit($location_id, Request $request)
+    {
+        // var_dump($location_id);
+        // echo '<pre>';
+        // var_dump($request->input());
+        // echo '</pre>';
+        // exit;
+
+        if($location_id != $request->input('lid')){
+            return view('open.errorsubmit');
+        }
+
+        $location = DB::table('location')->whereRaw('md5(id) = "'.$location_id.'"')->first();
+
+        if(empty($location)){
+            return view('open.errorsubmit');
+        }
+
+        $form_id = $location->id;
+        $nama = $request->input('nama');
+        $no_tel = $request->input('no_tel');
+        $nama_syarikat = $request->input('nama_syarikat');
+
+        $demam = $request->input('demam');
+        $selsema = $request->input('selsema');
+        $batuk = $request->input('batuk');
+        $sesak_nafas = $request->input('sesak_nafas');
+        $sakit_sendi = $request->input('sakit_sendi');
+        $deria_rasa = $request->input('deria_rasa');
+
+        $deklarasi_1 = $request->input('deklarasi_1');
+        $deklarasi_2 = $request->input('deklarasi_2');
+        $deklarasi_3 = $request->input('deklarasi_3');
+
+        $suhu = $request->input('suhu');
+        $agree = $request->input('agree');
+
+        $date = date(now());
+
+        $duplicate = DB::table('respon_kontraktor')->whereRaw('md5(form_id) = "'.$location_id.'" 
+        AND no_tel = "'.$no_tel.'" AND DATE(created_at) = DATE("'.$date.'")')->first();
+
+        if(!empty($duplicate)){
+            return redirect('/form/kontraktor/'.$location_id)->with('status_error','Pendaftaran Tidak Berjaya. Nombor telefon yang dimasukkan telah didaftarkan hari ini!');
+        }
+
+        $record = Respon_kontraktor::insert(
+            [
+                'form_id' => $form_id,
+                'nama' => $nama,
+                'no_tel' => $no_tel,
+                'nama_syarikat' => $nama_syarikat,
+                'demam' => $demam,
+                'selsema' => $selsema,
+                'batuk' => $batuk,
+                'sesak_nafas' => $sesak_nafas,
+                'sakit_sendi' => $sakit_sendi,
+                'deria_rasa' => $deria_rasa,
+                'deklarasi_1' => $deklarasi_1,
+                'deklarasi_2' => $deklarasi_2,
+                'deklarasi_3' => $deklarasi_3,
+                'agree' => $agree,
+                'suhu' => $suhu,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ]
+        );
+
+        if($record){
+            return redirect('/form/receipt/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_tel));
+        }else{
+            return view('open.errorsubmit');
+        }
     }
 }
