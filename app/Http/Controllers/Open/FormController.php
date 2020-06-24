@@ -86,9 +86,17 @@ class FormController extends Controller
         $variables['kawasan'] = $location->kawasan;
         $variables['waktu_pendaftaran'] = date('d M Y (h:i a)', time());
         $variables['no_tel'] = $no_tel;
+        
+        $suhu = ($location->type == 0)?false:$suhu >= 37.5;
+        if($verify == 1 || $suhu)
+        {
+            $danger = 1;
+        }else{
+            $danger = 0;
+        }
 
         if($record){
-            return redirect('/form/receipt/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_tel));
+            return redirect('/form/receipt/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_tel).'&alert='.urlencode($danger));
         }else{
             return view('open.errorsubmit');
         }
@@ -99,9 +107,16 @@ class FormController extends Controller
         $location_id = $request->get('loc');
         $time = $request->get('t');
         $phone = $request->get('p');
+        $alert = $request->get('alert');
 
         if(empty($location_id) || empty($time)){
             return view('open.errorsubmit');
+        }
+
+        if($alert != '' AND $alert == 1){
+            $variables['danger'] = true;
+        }else{
+            $variables['danger'] = false;
         }
 
         $location = DB::table('location')->whereRaw('md5(id) = "'.$location_id.'"')->first();
@@ -179,6 +194,15 @@ class FormController extends Controller
 
         $date = date(now());
 
+        $point = $demam + $selsema + $batuk + $sesak_nafas + $sakit_sendi + $deria_rasa;
+        $suhu = ($location->type == 0)?false:$suhu >= 37.5;
+        if($point > 0 || $suhu)
+        {
+            $danger = 1;
+        }else{
+            $danger = 0;
+        }
+
         $duplicate = DB::table('respon_staff')->whereRaw('md5(form_id) = "'.$location_id.'" 
         AND no_pekerja = "'.$no_pekerja.'" AND DATE(created_at) = DATE("'.$date.'")')->first();
 
@@ -208,8 +232,10 @@ class FormController extends Controller
             ]
         );
 
+        
+
         if($record){
-            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja));
+            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.urlencode($danger));
         }else{
             return view('open.errorsubmit');
         }
@@ -220,9 +246,16 @@ class FormController extends Controller
         $location_id = $request->get('loc');
         $time = $request->get('t');
         $no_pekerja = $request->get('p');
+        $alert = $request->get('alert');
 
         if(empty($location_id) || empty($time)){
             return view('open.errorsubmit');
+        }
+
+        if($alert != '' AND $alert == 1){
+            $variables['danger'] = true;
+        }else{
+            $variables['danger'] = false;
         }
 
         $location = DB::table('location')->whereRaw('md5(id) = "'.$location_id.'"')->first();
@@ -280,23 +313,32 @@ class FormController extends Controller
         $form_id = $location->id;
         $nama = $request->input('nama');
         $no_tel = $request->input('no_tel');
-        $nama_syarikat = $request->input('nama_syarikat');
+        // $nama_syarikat = $request->input('nama_syarikat');
 
-        $demam = $request->input('demam');
-        $selsema = $request->input('selsema');
-        $batuk = $request->input('batuk');
-        $sesak_nafas = $request->input('sesak_nafas');
-        $sakit_sendi = $request->input('sakit_sendi');
-        $deria_rasa = $request->input('deria_rasa');
+        // $demam = $request->input('demam');
+        // $selsema = $request->input('selsema');
+        // $batuk = $request->input('batuk');
+        // $sesak_nafas = $request->input('sesak_nafas');
+        // $sakit_sendi = $request->input('sakit_sendi');
+        // $deria_rasa = $request->input('deria_rasa');
 
-        $deklarasi_1 = $request->input('deklarasi_1');
-        $deklarasi_2 = $request->input('deklarasi_2');
-        $deklarasi_3 = $request->input('deklarasi_3');
+        // $deklarasi_1 = $request->input('deklarasi_1');
+        // $deklarasi_2 = $request->input('deklarasi_2');
+        // $deklarasi_3 = $request->input('deklarasi_3');
+
+        $verify = $request->input('verify');
 
         $suhu = $request->input('suhu');
         $agree = $request->input('agree');
 
         $date = date(now());
+
+        $suhu = ($location->type == 0)?false:$suhu >= 37.5;
+        if($verify == 1 || $suhu){
+            $danger = 1;
+        }else{
+            $danger = 0;
+        }
 
         $duplicate = DB::table('respon_kontraktor')->whereRaw('md5(form_id) = "'.$location_id.'" 
         AND no_tel = "'.$no_tel.'" AND DATE(created_at) = DATE("'.$date.'")')->first();
@@ -310,16 +352,17 @@ class FormController extends Controller
                 'form_id' => $form_id,
                 'nama' => $nama,
                 'no_tel' => $no_tel,
-                'nama_syarikat' => $nama_syarikat,
-                'demam' => $demam,
-                'selsema' => $selsema,
-                'batuk' => $batuk,
-                'sesak_nafas' => $sesak_nafas,
-                'sakit_sendi' => $sakit_sendi,
-                'deria_rasa' => $deria_rasa,
-                'deklarasi_1' => $deklarasi_1,
-                'deklarasi_2' => $deklarasi_2,
-                'deklarasi_3' => $deklarasi_3,
+                // 'nama_syarikat' => $nama_syarikat,
+                // 'demam' => $demam,
+                // 'selsema' => $selsema,
+                // 'batuk' => $batuk,
+                // 'sesak_nafas' => $sesak_nafas,
+                // 'sakit_sendi' => $sakit_sendi,
+                // 'deria_rasa' => $deria_rasa,
+                // 'deklarasi_1' => $deklarasi_1,
+                // 'deklarasi_2' => $deklarasi_2,
+                // 'deklarasi_3' => $deklarasi_3,
+                'verify' => $verify,
                 'agree' => $agree,
                 'suhu' => $suhu,
                 'created_at' => $date,
@@ -328,7 +371,7 @@ class FormController extends Controller
         );
 
         if($record){
-            return redirect('/form/receipt/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_tel));
+            return redirect('/form/receipt/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_tel).'&alert='.urlencode($danger));
         }else{
             return view('open.errorsubmit');
         }

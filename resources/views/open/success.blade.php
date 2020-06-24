@@ -35,6 +35,18 @@
 
             <p>Kepada pekedai/pemilik premis, sila pastikan kesahihan nama premis dan tarikh resit ini.</p>
 
+            <h5>Status</h5>
+
+            <div class="col-md-4 mb-3">
+                @if ($danger)
+                <a href="javascript:;" onclick="play_audio()" id="play_audio"><h4 style="background-color: #e01515; padding:10px; border-radius: 5px; color:white;">Berisiko Tinggi / High Risk</h4></a>
+                @else
+                <h4 style="background-color: #099820; padding:10px; border-radius: 5px; color:white;">Berisiko Rendah / Low Risk</h4>
+                @endif
+            </div>
+
+            
+
             <h4>Tarikh:</h4>
             <h3 class="text-grey">{{ $waktu_pendaftaran }}</h3>
 
@@ -73,7 +85,19 @@
         </div>
 
     </div>
+
+    <audio id="myAudio">
+        <source src="/assets/audio/alarm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <script src="/assets-admin/js/core/jquery.min.js"></script>
     <script src="/assets-admin/js/core/bootstrap.min.js"></script>
+
+    <script>
+        function play_audio(){
+            $('#myAudio')[0].play();
+        }
+    </script>
 </body>
 </html>

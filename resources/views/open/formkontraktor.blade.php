@@ -139,9 +139,6 @@
         <h2>Borang Pengisytiharan Kesihatan Harian (COVID-19) untuk Kontraktor</h2>
         <hr />
 
-        <p class="pb-2">Rekod pemeriksaan kesihatan untuk anggota kerja dan pengisytiharan sebelum perjalanan ke pejabat.</p>
-        <p class="pb-2">Sila isi pada hari yang sama ke pejabat.</p>
-        <p class="pb-2">Sila hubungi HR jika ada sebarang kekeliruan atau pertanyaan.</p>
         <p class="pb-2" style="color: rgb(255, 11, 52);"><i>***Sila baca semua maklumat tertera</i></p>
         <br>
 
@@ -171,115 +168,8 @@
             <h6>Nombor Telefon / Phone Number  <span style="color: red;">*</span></h6>
             <input class="form-control" type="text" name="no_tel" minlength="10" maxlength="20" required>
 
-            <h6>Nama Syarikat / Company Name <span style="color: red;">*</span></h6>
-            <input class="form-control" type="text" name="nama_syarikat" maxlength="255" required>
-
-            <br>
-            <h4>Status Kesihatan / Health Status</h4>
-            <p class="col-mb-2">Tandakan "YA" atau "TIDAK" jika anda mempunyai gejala-gejala dibawah</p>
-            <p class="col-mb-2">Anda akan dinilai berdasarkan maklumat dibawah</p>
-            <br>
-
-            <h6 class="mt-4">Demam / Fever ? <span style="color: red;">*</span></h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="demam" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="demam" value="0" required> TIDAK
-            </div>
-
-            <hr>
-
-            <h6 class="mt-4">Selsema / Flu ? <span style="color: red;">*</span></h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="selsema" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="selsema" value="0" required> TIDAK
-            </div>
-
-            <hr>
-
-            <h6 class="mt-4">Batuk / Cough ? <span style="color: red;">*</span></h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="batuk" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="batuk" value="0" required> TIDAK
-            </div>
-
-            <hr>
-
-            <h6 class="mt-4">Sesak Nafas / Breathing Difficulties ? <span style="color: red;">*</span></h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="sesak_nafas" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="sesak_nafas" value="0" required> TIDAK
-            </div>
-
-            <hr>
-
-            <h6 class="mt-4">Sakit-sakit Sendi / Join Pain ? <span style="color: red;">*</span></h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="sakit_sendi" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="sakit_sendi" value="0" required> TIDAK
-            </div>
-
-            <hr>
-
-            <h6 class="mt-4">Hilang Deria Rasa / Loss Sense of Taste ? <span style="color: red;">*</span></h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="deria_rasa" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="deria_rasa" value="0" required> TIDAK
-            </div>
-
-            <br>
-            <h4>Deklarasi / Declaration</h4>
-            <p class="mb-2">Anda diminta untuk menjawab "YA" atau "TIDAK" dalam norang deklarasi di bawah</p>
-            <br>
-
-            <h6 class="mb-2" style="line-height: 1.8;">Adakah anda tinggal bersama anggota barisan hadapan kesihatan yang mengendalikan pesakit COVID-19 
-                (seperti doktor, jururawat dan penolong pegawai perubatan) ATAU kakitangan penerbangan (seperti juruterbang, pramugari/pramugara)
-                ATAU apa-apa pekerjaan yang meningkatkan risiko jangkitan COVID-19 yang bekerja dalam tempoh 14 hari yang lepas? <span style="color: red;">*</span>
-            </h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="deklarasi_1" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="deklarasi_1" value="0" required> TIDAK
-            </div>
-            
-            <hr>
-
-            <h6 class="mb-2" style="line-height: 1.8;">Adakah anda pernah menghadiri perhimpunan yang melibatkan kes yang disyaki 
-                (termasuk tempat beribadat, kenduri kahwin, gym dan lain-lain)? <span style="color: red;">*</span>
-            </h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="deklarasi_2" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="deklarasi_2" value="0" required> TIDAK
-            </div>
-
-            <hr>
-
-            <h6 class="mb-2" style="line-height: 1.8;">Adakah anda kontak rapat dengan seseorang yang positif COVID-19 dalam tempoh 14 hari yang lepas? <span style="color: red;">*</span>
-            </h6>
-            <div class="mb-4">
-                <input class="radio-setting" type="radio" name="deklarasi_3" value="1" required> YA
-            </div>
-            <div>
-                <input class="radio-setting" type="radio" name="deklarasi_3" value="0" required> TIDAK
-            </div>
-
             @if ($type == 1)
-            <br>
-            <h5 class="mt-4">Suhu / Temperature <span style="color: red;">*</span></h5>
+            <h6 class="mt-2">Suhu / Temperature <span style="color: red;">*</span></h6>
             <input type="number" name="suhu" step="0.01" max="50" class="col-md-2" required> 
             <br>
             <br>
@@ -287,6 +177,29 @@
             
             <br>
         </div>
+
+        <br>
+
+        <h5>Dalam 14 hari yang lalu, adakah anda:<span style="color: red;">*</span>
+        <br><i>In the last 14 days, have you:</i></h5>
+
+        <ul>
+            <li>Mengalami sebarang simptom COVID-19 (demam, batuk, sesak nafas, sakit tekak)?
+                <br><i>Been exhibiting any COVID-19 symptoms (fever, cought, shortness of breath, sore throat)?</i>
+            </li>
+            <li>Berhubung rapat dengan pesakit positif COVID-19?
+                <br><i>Had close contact with COVID-19 positive patient?</i>
+            </li>
+        </ul>
+        
+        <table style="width: 0;">
+            <tr>
+                <td><input type="radio" name="verify" value="0" style="width: 5%;" required>Tidak / No</td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="verify" value="1" style="width: 5%;" required>Ya / Yes</td>
+            </tr>
+        </table>
 
         <p class="mt-2">Dengan ini, saya mengakui bahawa butiran yang diisi adalah betul dan tepat. <span style="color: red;">*</span></p>
         <p class="mt-2">I hereby acknowledge that the information given in this form is correct and accurate.</p>
