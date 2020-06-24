@@ -136,7 +136,7 @@
         <form action="/form/kontraktor/submit/{{ md5($location_id) }}" method="POST">
         @csrf
         <input type="hidden" name="lid" value="{{ md5($location_id) }}">
-        <h2>Borang Pengisytiharan Kesihatan Harian (COVID-19) untuk Kontraktor ILSAS</h2>
+        <h2>Borang Pengisytiharan Kesihatan Harian (COVID-19) untuk Kontraktor</h2>
         <hr />
 
         <p class="pb-2">Rekod pemeriksaan kesihatan untuk anggota kerja dan pengisytiharan sebelum perjalanan ke pejabat.</p>
