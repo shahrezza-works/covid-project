@@ -36,7 +36,7 @@
             <select name="location_select" class="form-control" required>
                 <option value="">Pilih...</option>
                 @foreach ($location as $item)
-                <option value="{{ $item->id }}" {{ ($item->id == $location_select)?'selected':'' }}>{{ $item->nama_premis.(!empty($item->nama_bangunan)?' - '.$item->nama_bangunan.' - ':' - ').$item->kawasan }}</option>
+                <option value="{{ $item->id }}" {{ ($item->id == $location_select)?'selected':'' }}>{{ $item->nama.' - '.$item->nama_premis.(!empty($item->nama_bangunan)?' - '.$item->nama_bangunan.' - ':' - ').$item->kawasan }}</option>
                 @endforeach
             </select>
         </div>
@@ -60,7 +60,7 @@
                 <tr>
                     <th></th>
                     <th>Nama</th>
-                    <th> @if ($borang_type == 0)
+                    <th> @if ($borang_type == 1)
                         No. Pekerja
                     @else
                         No. Telefon
@@ -80,14 +80,14 @@
                 @foreach($table_data as $data)
                 <tr>
                     <td></td>
-                    <td>@if ($borang_type == 0 || $borang_type == 2)
+                    <td>@if ($borang_type == 1 || $borang_type == 3)
                         {{ $data->nama }}
                     @else
                         {{ $data->name }}
                     @endif</td>
-                    <td>@if ($borang_type == 0)
+                    <td>@if ($borang_type == 1)
                         {{ $data->no_pekerja }}
-                    @elseif ($borang_type == 2)
+                    @elseif ($borang_type == 3)
                         {{ $data->no_tel }}
                     @else
                         {{ $data->phone }}
@@ -112,7 +112,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form method="get" action="{{ ($borang_type == 0) ? '/temperature/update_staff' : (($borang_type == 2) ? '/temperature/update_kontraktor' : '/temperature/update') }}">
+        <form method="get" action="{{ ($borang_type == 1) ? '/temperature/update_staff' : (($borang_type == 3) ? '/temperature/update_kontraktor' : '/temperature/update') }}">
             <div id="location-details" class="modal-body">
                 <input type="hidden" name="respon_id" id="respon_id">
                 {{ csrf_field() }}
@@ -178,7 +178,7 @@
                 } );
             } ).draw();
         })
-        <?php if($borang_type == 0){ ?>
+        <?php if($borang_type == 1){ ?>
         function updateSuhu(respon)
         {//anggota kerja
             $.get('/temperature/details_staff/?rid='+respon, function(res){
@@ -194,7 +194,7 @@
                 }
             })
         }
-        <?php }elseif($borang_type == 2){ ?>
+        <?php }elseif($borang_type == 3){ ?>
         function updateSuhu(respon)
         {//kontraktor
             $.get('/temperature/details_kontraktor/?rid='+respon, function(res){
