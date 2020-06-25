@@ -197,7 +197,7 @@ class FormController extends Controller
         AND no_pekerja = "'.$no_pekerja.'" AND DATE(created_at) = DATE("'.$date.'")')->first();
 
         if(!empty($duplicate)){
-            return redirect('/form/staff/'.$location_id)->with('status_error','Pendaftaran Tidak Berjaya. Nombor telefon yang dimasukkan telah didaftarkan hari ini!');
+            return redirect('/form/staff/'.$location_id)->with('status_error','Pendaftaran Tidak Berjaya. Nombor pekerja yang dimasukkan telah didaftarkan hari ini!');
         }
 
         $record = Respon_staff::insert(
