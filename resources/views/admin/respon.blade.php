@@ -128,7 +128,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <label class="font-weight-bold">@if ($borang_type == 0)
+                        <label class="font-weight-bold">@if ($borang_type == 1)
                         No Pekerja
                         @else
                         No Telefon
@@ -143,7 +143,7 @@
                         <label class="font-weight-bold">Suhu (&#176;C)</label>
                     </div>
                     <div>
-                        <input id="suhu" class="form-control" name="suhu" required>
+                        <input id="suhu" class="form-control" name="suhu" type="number" step="0.01" max="50" required>
                     </div>
                 </div>
             </div>
