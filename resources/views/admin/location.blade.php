@@ -43,6 +43,7 @@
                     <th>Poskod</th>
                     <th>Kawasan</th>
                     <th>Negeri</th>
+                    <th>Jenis Borang</th>
                     <th>Action</th>
                     <th>QR Code</th>
                     <th>Get Data</th>
@@ -57,6 +58,7 @@
                     <td>{{ $data->poskod }}</td>
                     <td>{{ $data->kawasan }}</td>
                     <td>{{ $data->negeri }}</td>
+                    <td>{{ $data->nama }}</td>
                     <td>
                         <a class="btn btn-secondary" href="/location/edit/{{ $data->id }}">EDIT</a>
                         <a class="btn btn-danger" href="javascript:;" onclick="confirmDelete({{ $data->id }})">REMOVE</a>
