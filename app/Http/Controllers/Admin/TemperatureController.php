@@ -17,10 +17,10 @@ class TemperatureController extends Controller
     public function index(Request $request)
     {
         if(Auth::user()->usertype == -1){
-            $location = Location::where([['remove','=','0']])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0']])->orderBy('nama_premis','asc')->get();
         }else{
             $user_id = Auth::user()->id;
-            $location = Location::where([['remove','=','0'],['user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0'],['location.user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
         }
         // var_dump($location); exit;
         $variables['location'] = $location;
@@ -34,10 +34,10 @@ class TemperatureController extends Controller
     public function temperature(Request $request)
     {
         if(Auth::user()->usertype == -1){
-            $location = Location::where([['remove','=','0']])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0']])->orderBy('nama_premis','asc')->get();
         }else{
             $user_id = Auth::user()->id;
-            $location = Location::where([['remove','=','0'],['user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0'],['location.user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
         }
         // var_dump($location); exit;
         $variables['location'] = $location;
@@ -57,10 +57,10 @@ class TemperatureController extends Controller
         $tarikh = $request->input('tarikh');
 
         if(Auth::user()->usertype == -1){
-            $location = Location::where([['remove','=','0']])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0']])->orderBy('nama_premis','asc')->get();
         }else{
             $user_id = Auth::user()->id;
-            $location = Location::where([['remove','=','0'],['user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0'],['location.user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
         }
     
         $variables['location'] = $location;
@@ -77,9 +77,9 @@ class TemperatureController extends Controller
         $location_data_based_on_select = Location::where([['remove','=','0'],['id','=',$location_select]])->orderBy('nama_premis','asc')->first();
         $variables['borang_type'] = $location_data_based_on_select->borang;
 
-        if($location_data_based_on_select->borang == 0){
+        if($location_data_based_on_select->borang == 1){
             $data = DB::table('respon_staff')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('nama','asc')->get();
-        }else if($location_data_based_on_select->borang == 1){
+        }else if($location_data_based_on_select->borang == 2){
             $data = DB::table('respon')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('name','asc')->get();
         }else{
             $data = DB::table('respon_kontraktor')->whereRaw('form_id = '.$location_select.' AND DATE(created_at) = "'.$tarikh.'"')->orderBy('nama','asc')->get();

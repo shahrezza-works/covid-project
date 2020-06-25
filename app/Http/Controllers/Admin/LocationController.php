@@ -9,6 +9,7 @@ use App\Modal\Category2;
 use App\Modal\Negeri;
 use App\Modal\Location;
 use App\Modal\Respon;
+use App\Modal\Borang;
 use Auth;
 use URL;
 use DB;
@@ -20,10 +21,10 @@ class LocationController extends Controller
     public function main()
     {   
         if(Auth::user()->usertype == -1){
-            $location = Location::where([['remove','=','0']])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0']])->orderBy('nama_premis','asc')->get();
         }else{
             $user_id = Auth::user()->id;
-            $location = Location::where([['remove','=','0'],['user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0'],['location.user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
         }
         // $module_list = json_encode(Module::all());
         // print_r($module_list); exit;
@@ -55,6 +56,11 @@ class LocationController extends Controller
         return Negeri::select(['name'])->where('remove','=','0')->orderBy('name','asc')->get();
     }
 
+    public function borang_list()
+    {
+        return Borang::select(['id','nama'])->where('remove','=','0')->orderBy('nama','asc')->get();
+    }
+
     public function single_details($location_id)
     {
         if(is_numeric($location_id)){
@@ -84,10 +90,12 @@ class LocationController extends Controller
         $category_1 = $this->kategori1_list();
         $category_2 = $this->kategori2_list();
         $negeri = $this->negeri_list();
+        $borang = $this->borang_list();
 
         $variables['kategori_1'] = $category_1;
         $variables['kategori_2'] = $category_2;
         $variables['negeri'] = $negeri;
+        $variables['borang'] = $borang;
 
         return view('admin.location_create', $variables);
     }
@@ -167,6 +175,7 @@ class LocationController extends Controller
         $variables['kategori_1'] = $this->kategori1_list();
         $variables['kategori_2'] = $this->kategori2_list();
         $variables['negeri'] = $this->negeri_list();
+        $variables['borang_list'] = $this->borang_list();
 
         return view('admin.location_edit', $variables);
     }
@@ -274,10 +283,10 @@ class LocationController extends Controller
                 // $urlTesting = $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
                 $base_url = URL::to('/');
 
-                if($data['borang'] == 0)
+                if($data['borang'] == 1)
                 {
                     $urlforQR = urlencode($base_url.'/form/staff/'.md5($location_id));
-                }else if($data['borang'] == 1){
+                }else if($data['borang'] == 2){
                     $urlforQR = urlencode($base_url.'/form/'.md5($location_id));
                 }else{
                     $urlforQR = urlencode($base_url.'/form/kontraktor/'.md5($location_id));
@@ -343,13 +352,13 @@ class LocationController extends Controller
         
         $file_name = date('Y-m-d-',time()).str_replace(' ', '_', $location_details['nama_premis']);
 
-        if($borang_type == 2){
+        if($borang_type == 3){
             $record = DB::table('respon_kontraktor')
             ->leftJoin('location', 'location.id', 'respon_kontraktor.form_id')
             ->select('respon_kontraktor.id', 'respon_kontraktor.nama', 'respon_kontraktor.no_tel', 'respon_kontraktor.suhu', 'respon_kontraktor.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
             ->whereRaw('md5(form_id) = "'.$location_id.'"')
             ->get();
-        }elseif($borang_type == 0){
+        }elseif($borang_type == 1){
             $record = DB::table('respon_staff')
             ->leftJoin('location', 'location.id', 'respon_staff.form_id')
             ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.suhu', 'respon_staff.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')

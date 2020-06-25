@@ -187,17 +187,29 @@
             <li>Mengalami sebarang simptom COVID-19 (demam, batuk, sesak nafas, sakit tekak)?
                 <br><i>Been exhibiting any COVID-19 symptoms (fever, cought, shortness of breath, sore throat)?</i>
             </li>
-            <li>Berhubung rapat dengan pesakit positif COVID-19?
-                <br><i>Had close contact with COVID-19 positive patient?</i>
-            </li>
         </ul>
-        
+
         <table style="width: 0;">
             <tr>
                 <td><input type="radio" name="verify" value="0" style="width: 5%;" required>Tidak / No</td>
             </tr>
             <tr>
                 <td><input type="radio" name="verify" value="1" style="width: 5%;" required>Ya / Yes</td>
+            </tr>
+        </table>
+
+        <ul>
+            <li>Berhubung rapat dengan pesakit positif COVID-19?
+                <br><i>Had close contact with COVID-19 positive patient?</i>
+            </li>
+        </ul>
+
+        <table style="width: 0;">
+            <tr>
+                <td><input type="radio" name="verify_2" value="0" style="width: 5%;" required>Tidak / No</td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="verify_2" value="1" style="width: 5%;" required>Ya / Yes</td>
             </tr>
         </table>
 

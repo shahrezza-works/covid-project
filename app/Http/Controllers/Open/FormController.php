@@ -207,7 +207,7 @@ class FormController extends Controller
         AND no_pekerja = "'.$no_pekerja.'" AND DATE(created_at) = DATE("'.$date.'")')->first();
 
         if(!empty($duplicate)){
-            return redirect('/form/staff/'.$location_id)->with('status_error','Pendaftaran Tidak Berjaya. Nombor telefon yang dimasukkan telah didaftarkan hari ini!');
+            return redirect('/form/staff/'.$location_id)->with('status_error','Pendaftaran Tidak Berjaya. Nombor pekerja yang dimasukkan telah didaftarkan hari ini!');
         }
 
         $record = Respon_staff::insert(
@@ -327,18 +327,12 @@ class FormController extends Controller
         // $deklarasi_3 = $request->input('deklarasi_3');
 
         $verify = $request->input('verify');
+        $verify_2 = $request->input('verify_2');
 
         $suhu = $request->input('suhu');
         $agree = $request->input('agree');
 
         $date = date(now());
-
-        $suhu = ($location->type == 0)?false:$suhu >= 37.5;
-        if($verify == 1 || $suhu){
-            $danger = 1;
-        }else{
-            $danger = 0;
-        }
 
         $duplicate = DB::table('respon_kontraktor')->whereRaw('md5(form_id) = "'.$location_id.'" 
         AND no_tel = "'.$no_tel.'" AND DATE(created_at) = DATE("'.$date.'")')->first();
@@ -363,12 +357,20 @@ class FormController extends Controller
                 // 'deklarasi_2' => $deklarasi_2,
                 // 'deklarasi_3' => $deklarasi_3,
                 'verify' => $verify,
+                'verify_2' => $verify_2,
                 'agree' => $agree,
                 'suhu' => $suhu,
                 'created_at' => $date,
                 'updated_at' => $date,
             ]
         );
+
+        $suhu = ($location->type == 0)?false:$suhu >= 37.5;
+        if($verify == 1 || $verify_2 == 1 || $suhu){
+            $danger = 1;
+        }else{
+            $danger = 0;
+        }
 
         if($record){
             return redirect('/form/receipt/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_tel).'&alert='.urlencode($danger));
