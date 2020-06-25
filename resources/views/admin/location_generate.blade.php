@@ -34,9 +34,9 @@
     <center>
         {{-- <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" width="300px"> --}}
         {{-- <img src="/assets-admin/img/ilsas-logo.png" alt="Company Logo" width="400px"> --}}
-        <h1 class="mt-4 mb-4" style="font-weight: 600;">@if ($data->borang == 0)
+        <h1 class="mt-4 mb-4" style="font-weight: 600;">@if ($data->borang == 1)
             ANGGOTA KERJA
-        @elseif ($data->borang == 2)
+        @elseif ($data->borang == 3)
             KONTRAKTOR
         @else
             PELAWAT

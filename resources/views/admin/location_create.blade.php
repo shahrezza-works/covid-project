@@ -143,9 +143,9 @@
         <div class="col-md-3">
             <select class="form-control" name="borang" id="borang" required>
                 <option value="">Pilih...</option>
-                <option value="0">Anggota Kerja</option>
-                <option value="1">Pelawat</option>
-                <option value="2">Kontraktor</option>
+                @foreach ($borang as $item)
+                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
             </select>
         </div>
     </div>
