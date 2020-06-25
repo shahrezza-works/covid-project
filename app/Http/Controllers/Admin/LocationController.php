@@ -24,7 +24,7 @@ class LocationController extends Controller
             $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0']])->orderBy('nama_premis','asc')->get();
         }else{
             $user_id = Auth::user()->id;
-            $location = Location::where([['remove','=','0'],['user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
+            $location = DB::table('location')->selectRaw('location.*, borang.nama')->leftJoin('borang','borang.id','=','location.borang')->where([['location.remove','=','0'],['location.user_id', '=', $user_id]])->orderBy('nama_premis','asc')->get();
         }
         // $module_list = json_encode(Module::all());
         // print_r($module_list); exit;
