@@ -31,9 +31,9 @@
         <center>
             <p><i>"Terima kasih kerana menyertai usaha membendung wabak COVID-19"</i></p>
 
-            <p>Tunjukkan resit pengesahan ini kepada pekedai/pemilik premis ini untuk direkodkan <b>suhu</b>. Resit pengesahan ini digunakan untuk pengesahan visual sahaja.</p>
+            <p>Tunjukkan resit pengesahan ini kepada pemilik premis sebagai <b>pengesahan</b>. Resit pengesahan ini digunakan untuk pengesahan visual sahaja.</p>
 
-            <p>Kepada pekedai/pemilik premis, sila pastikan kesahihan nama premis dan tarikh resit ini.</p>
+            <p>Kepada pemilik premis, sila pastikan kesahihan nama premis dan tarikh resit ini.</p>
 
             <h5>Status</h5>
 
