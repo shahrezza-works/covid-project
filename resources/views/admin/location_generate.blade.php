@@ -32,7 +32,7 @@
     </style>
     <br>
     <center>
-        {{-- <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" width="300px"> --}}
+        <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-top:50px;" width="300px">
         {{-- <img src="/assets-admin/img/ilsas-logo.png" alt="Company Logo" width="400px"> --}}
         <h1 class="mt-4 mb-4" style="font-weight: 600;">@if ($data->borang == 1)
             ANGGOTA KERJA
