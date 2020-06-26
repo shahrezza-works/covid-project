@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>COVID-19 - Check In</title>
+    <title>HEALTH - Check In</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="/assets/images/location.png" sizes="32x32">
@@ -63,7 +63,7 @@
           
           <div class="col-6 col-md-3 col-xl-4  d-block">
             <h1 class="mb-0 site-logo">
-              <a href="/" class="text-black h2 mb-0">COVID-19&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;Check In<span class="text-primary">.</span> </a></h1>
+              <a href="/" class="text-black h2 mb-0">HEALTH&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;Check In<span class="text-primary">.</span> </a></h1>
           </div>
 
           <div class="col-12 col-md-9 col-xl-8 main-menu">

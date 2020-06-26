@@ -41,7 +41,7 @@
       <div class="logo">
         <a href="/home" class="simple-text logo-normal">
           <img src="/assets/images/location.png" height="20">
-          &nbsp;COVID-19 - Check In
+          &nbsp;Health - Check In
         </a>
       </div>
       <div class="sidebar-wrapper">
