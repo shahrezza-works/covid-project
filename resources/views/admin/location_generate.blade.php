@@ -35,11 +35,11 @@
         <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-top:50px;" width="300px">
         {{-- <img src="/assets-admin/img/ilsas-logo.png" alt="Company Logo" width="400px"> --}}
         <h1 class="mt-4 mb-4" style="font-weight: 600;">@if ($data->borang == 1)
-            ANGGOTA KERJA
+            ANGGOTA KERJA ILSAS
         @elseif ($data->borang == 3)
             KONTRAKTOR
         @else
-            PELAWAT
+            PELAWAT & PESERTA KURSUS
         @endif</h1>
         <h2 style="margin-top:1.5em;font-weight:600;color:#170c79;">SCAN WITH YOUR MOBILE PHONE<br>TO CHECK IN</h2>
         <img src="{{ $QRimage }}" alt="QR code image" style="border-style: dotted;border-color:#6e0303;" width="400">
