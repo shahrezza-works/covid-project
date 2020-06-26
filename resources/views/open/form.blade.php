@@ -126,6 +126,7 @@
 
     <div class="testbox">
         <form action="/form/submit/{{ md5($location_id) }}" method="POST">
+        <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-bottom:10px;" width="300px">
         @csrf
         <input type="hidden" name="lid" value="{{ md5($location_id) }}">
         <h2>Borang Pendaftaran /</h2>

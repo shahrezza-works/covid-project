@@ -134,6 +134,7 @@
 
     <div class="testbox">
         <form action="/form/staff/submit/{{ md5($location_id) }}" method="POST">
+        <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-bottom:10px;" width="300px">
         @csrf
         <input type="hidden" name="lid" value="{{ md5($location_id) }}">
         <h2>Borang Pengisytiharan Kesihatan Harian (COVID-19) untuk Staff ILSAS</h2>
