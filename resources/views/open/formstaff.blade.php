@@ -260,7 +260,7 @@
 
             <br>
             <h4>Deklarasi / Declaration</h4>
-            <p class="mb-2">Anda diminta untuk menjawab "YA" atau "TIDAK" dalam norang deklarasi di bawah</p>
+            <p class="mb-2">Anda diminta untuk menjawab "YA" atau "TIDAK" dalam borang deklarasi di bawah</p>
             <br>
 
             <h6 class="mb-2" style="line-height: 1.8;">Adakah anda tinggal bersama anggota barisan hadapan kesihatan yang mengendalikan pesakit COVID-19 
