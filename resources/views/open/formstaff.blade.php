@@ -167,16 +167,16 @@
             <h4 class="mb-4">Maklumat Diri / Personal Information</h4>
 
             <h6>Nama / Name <span style="color: red;">*</span></h6>
-            <input class="form-control" type="text" name="nama" maxlength="200" required>
+            <input class="form-control" type="text" name="nama" maxlength="200" value="{{ Cookie::get('nama') }}" required>
             
             <h6>No. Pekerja / Staff No. <span style="color: red;">*</span></h6>
-            <input class="form-control" type="text" name="no_pekerja" maxlength="20" required>
+            <input class="form-control" type="text" name="no_pekerja" maxlength="20" value="{{ Cookie::get('no_pekerja') }}" required>
 
             <h6>Jabatan <span style="color: red;">*</span></h6>
             <select class="form-control" name="jabatan" required>
                 <option value="">Pilih...</option>
                 @foreach ($jabatan as $item)
-                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                <option value="{{ $item->name }}" {{ (Cookie::get('jabatan') ==  $item->name) ? 'selected' : '' }} >{{ $item->name }}</option>
                 @endforeach
                 {{-- <option value="SDI">SDI</option>
                 <option value="AMTEC">AMTEC</option>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Open;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Modal\Location;
 use App\Modal\Respon;
@@ -231,7 +232,11 @@ class FormController extends Controller
         }
 
         if($record){
-            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.$danger);
+            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.$danger)
+                ->withCookie(cookie()->forever('nama', $nama))
+                ->withCookie(cookie()->forever('no_pekerja', $no_pekerja))
+                ->withCookie(cookie()->forever('jabatan', $jabatan))
+                ;
         }else{
             return view('open.errorsubmit');
         }
