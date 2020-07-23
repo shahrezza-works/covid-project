@@ -361,7 +361,7 @@ class LocationController extends Controller
         }elseif($borang_type == 1){
             $record = DB::table('respon_staff')
             ->leftJoin('location', 'location.id', 'respon_staff.form_id')
-            ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.jabatan', 'respon_staff.suhu', 'respon_staff.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
+            ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.jabatan', 'respon_staff.suhu', DB::raw('DATE(respon_staff.created_at) as created_at, TIME(respon_staff.created_at) as time_at'), 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
             ->whereRaw('md5(form_id) = "'.$location_id.'"')
             ->get();
         }else{
