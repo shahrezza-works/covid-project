@@ -74,7 +74,9 @@
     
                     <ul>
                         <li>Semua butiran yang diisi adalah tepat dan benar.</li>
+                        @if (!$danger)
                         <li>Anda tiada sebarang simptom demam atau selsema.</li>
+                        @endif
                     </ul>
 
                 </p>
