@@ -340,8 +340,15 @@ class LocationController extends Controller
         // var_dump($result); exit;
     }
 
-    public function getdata($location_id)
+    public function getdata($location_id, Request $request)
     {
+        if(empty($request->input('date_from')) || empty($request->input('date_to'))){
+            return redirect('/location')->with('status_error','Failed to get data. Date Range required!');
+        }
+        
+        $date_from = $request->input('date_from');
+        $date_to = $request->input('date_to');
+
         $location_details = Location::whereRaw('md5(id) = "'.$location_id.'"')->first();
         $borang_type = $location_details['borang'];
 
@@ -356,19 +363,19 @@ class LocationController extends Controller
             $record = DB::table('respon_kontraktor')
             ->leftJoin('location', 'location.id', 'respon_kontraktor.form_id')
             ->select('respon_kontraktor.id', 'respon_kontraktor.nama', 'respon_kontraktor.no_tel', 'respon_kontraktor.suhu', 'respon_kontraktor.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
-            ->whereRaw('md5(form_id) = "'.$location_id.'"')
+            ->whereRaw('md5(form_id) = "'.$location_id.'" AND (respon_kontraktor.created_at >= "'.$date_from.' 00:00:00" AND respon_kontraktor.created_at <= "'.$date_to.' 23:59:59")')
             ->get();
         }elseif($borang_type == 1){
             $record = DB::table('respon_staff')
             ->leftJoin('location', 'location.id', 'respon_staff.form_id')
             ->select('respon_staff.id', 'respon_staff.nama', 'respon_staff.no_pekerja', 'respon_staff.jabatan', 'respon_staff.suhu', DB::raw('DATE(respon_staff.created_at) as created_at, TIME(respon_staff.created_at) as time_at'), 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
-            ->whereRaw('md5(form_id) = "'.$location_id.'"')
+            ->whereRaw('md5(form_id) = "'.$location_id.'" AND (respon_staff.created_at >= "'.$date_from.' 00:00:00" AND respon_staff.created_at <= "'.$date_to.' 23:59:59")')
             ->get();
         }else{
             $record = DB::table('respon')
             ->leftJoin('location', 'location.id', 'respon.form_id')
             ->select('respon.id', 'respon.name', 'respon.phone AS no_pekerja/phone', 'respon.suhu', 'respon.created_at', 'location.nama_premis', 'location.nama_bangunan', 'location.kawasan', 'location.poskod', 'location.negeri')
-            ->whereRaw('md5(form_id) = "'.$location_id.'"')
+            ->whereRaw('md5(form_id) = "'.$location_id.'" AND (respon.created_at >= "'.$date_from.' 00:00:00" AND respon.created_at <= "'.$date_to.' 23:59:59")')
             ->get();
         }
         
@@ -396,6 +403,8 @@ class LocationController extends Controller
             ]);
         
             return Excel::download($export, $file_name.'.xlsx');
+        }else{
+            return redirect('/location')->with('status_error','No record(s) found!');
         }
     }
 }

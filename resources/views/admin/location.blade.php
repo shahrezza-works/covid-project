@@ -70,10 +70,11 @@
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="/location/getdata/{{ md5($data->id) }}" target="_blank"><i class="fas fa-download"></i></a>
+                        <a class="btn btn-primary" href="javascript:void(0)" id="{{ md5($data->id) }}" onclick="selectDateModal(this)"><i class="fas fa-download"></i></a>
                     </td>
                 </tr>
                 @endforeach
+                {{-- href="/location/getdata/{{ md5($data->id) }}" --}}
                 {{-- <tr>
                     <td></td>
                     <td>dua</td>
@@ -152,6 +153,41 @@
       </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="selectDateRange" tabindex="-1" role="dialog" aria-labelledby="selectDateRangeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="selectDateRangeModalLabel">Date Range</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="formGetData" action="/#" method="GET">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-md-3">From</label>
+                    <div class="col-md-6">
+                        <input type="date" name="date_from" value="" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3">To</label>
+                    <div class="col-md-6">
+                        <input type="date" name="date_to" value="" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Get Data</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('scripts')
@@ -190,6 +226,14 @@
 
                 $('#confirmDeleteBtn').attr('href','/location/delete/'+details['id']);
             })
+        }
+
+        function selectDateModal(data)
+        {
+            var uid = data.id
+
+            $('#formGetData').attr('action', '/location/getdata/'+uid)
+            $('#selectDateRange').modal("show")
         }
     </script>
 @endsection
