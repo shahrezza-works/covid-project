@@ -175,7 +175,7 @@ class FormController extends Controller
 
         $form_id = $location->id;
         $nama = $request->input('nama');
-        $no_pekerja = $request->input('no_pekerja');
+        $no_pekerja = strtoupper($request->input('no_pekerja'));
         $jabatan = $request->input('jabatan');
 
         $demam = $request->input('demam');
@@ -191,6 +191,8 @@ class FormController extends Controller
 
         $suhu = $request->input('suhu');
         $agree = $request->input('agree');
+
+        $clockin = $request->input('clockin');
 
         $date = date(now());
 
@@ -218,6 +220,7 @@ class FormController extends Controller
                 'deklarasi_3' => $deklarasi_3,
                 'agree' => $agree,
                 'suhu' => $suhu,
+                'clockin' => $clockin,
                 'created_at' => $date,
                 'updated_at' => $date,
             ]
@@ -232,7 +235,7 @@ class FormController extends Controller
         }
 
         if($record){
-            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.$danger)
+            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.$danger.'&clockin='.urlencode($clockin))
                 ->withCookie(cookie()->forever('nama', $nama))
                 ->withCookie(cookie()->forever('no_pekerja', $no_pekerja))
                 ->withCookie(cookie()->forever('jabatan', $jabatan))
@@ -240,6 +243,50 @@ class FormController extends Controller
         }else{
             return view('open.errorsubmit');
         }
+    }
+
+    public function staff_clockout()
+    {
+        return view('open.timeclock');
+    }
+
+    public function staff_clockoutprocess(Request $request)
+    {
+        // echo '<pre>';
+        // var_dump($request->input());
+        // echo '</pre>';
+        // exit();
+
+        $date = $request->input('date');
+        $clockout = date('H:i:s'); //overwrite time at UI
+        $clockout = $request->input('clockout');
+        $no_pekerja = $request->input('no_pekerja');
+
+        $record = DB::table('respon_staff')->whereRaw('DATE(created_at) = "'.$date.'" AND no_pekerja = "'.$no_pekerja.'"')->first();
+
+        if(empty($record)){
+            return view('open.timeclocknoclockin');
+        }
+
+        $affected = DB::table('respon_staff')
+              ->where('id', $record->id)
+              ->update(['clockout' => $clockout]);
+
+        $variables['nama'] = $record->nama;
+        $variables['time_clockout'] = $clockout;
+
+        // echo '<pre>';
+        // var_dump($affected);
+        // echo '</pre>';
+        // exit();
+        
+        if($affected){
+            return view('open.timeclocksuccess', $variables)->withCookie(cookie()->forever('no_pekerja', $no_pekerja));
+        }else{
+            return view('open.timeclockfailed');
+        }
+
+        
     }
 
     public function receipt_staff(Request $request)

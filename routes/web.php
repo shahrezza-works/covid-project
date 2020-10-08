@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/form/staff/clockout', 'Open\FormController@staff_clockout');
+Route::post('/form/staff/clockoutprocess', 'Open\FormController@staff_clockoutprocess');
+
 Route::get('/form/{unique_id}', 'Open\FormController@main');
 Route::post('/form/submit/{location_id}', 'Open\FormController@submit');
 Route::get('/form/receipt/summary', 'Open\FormController@receipt');

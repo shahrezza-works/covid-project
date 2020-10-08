@@ -45,6 +45,11 @@
                 @endif
             </div>
 
+            @if (!empty($_GET['clockin']))
+            <h4>Masa Masuk:</h4>
+            <h3 class="text-grey"><?=date('h:i A', strtotime($_GET['clockin']))?></h3>
+            @endif
+
             <h4>Tarikh:</h4>
             <h3 class="text-grey">{{ $waktu_pendaftaran }}</h3>
 

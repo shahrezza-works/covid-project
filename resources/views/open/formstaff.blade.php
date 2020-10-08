@@ -136,6 +136,7 @@
         <form action="/form/staff/submit/{{ md5($location_id) }}" method="POST">
         <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-bottom:10px;" width="300px">
         @csrf
+        <input type="hidden" name="clockin" value="{{ date('H:i:s') }}">
         <input type="hidden" name="lid" value="{{ md5($location_id) }}">
         <h2>Borang Pengisytiharan Kesihatan Harian (COVID-19) untuk Staff ILSAS</h2>
         <hr />
@@ -170,7 +171,14 @@
             <input class="form-control" type="text" name="nama" maxlength="200" value="{{ Cookie::get('nama') }}" required>
             
             <h6>No. Pekerja / Staff No. <span style="color: red;">*</span></h6>
-            <input class="form-control" type="text" name="no_pekerja" maxlength="20" value="{{ Cookie::get('no_pekerja') }}" required>
+            <p style="color:red;">Sila masukkan nombor pekerja tanpa ruang seperti contoh di bahawa /</p>
+            <p style="color:red;">Please enter staff number without space as below</p>
+            <p>Contoh / Example:</p>
+            <p style="color:red;">10098764</p>
+            <p style="color:red;">ILS0062</p>
+            <p style="color:red;">VPT1000</p>
+            <p style="color:red;">PB1000</p>
+            <input style="text-transform: uppercase;" id="no_pekerja" class="form-control" type="text" name="no_pekerja" maxlength="9" value="{{ Cookie::get('no_pekerja') }}" required>
 
             <h6>Jabatan <span style="color: red;">*</span></h6>
             <select class="form-control" name="jabatan" required>
@@ -330,5 +338,16 @@
     </div>
     <script src="/assets-admin/js/core/jquery.min.js"></script>
     <script src="/assets-admin/js/core/bootstrap.min.js"></script>
+    <script>
+        $("input#no_pekerja").on({
+            keydown: function(e) {
+                if (e.which === 32)
+                return false;
+            },
+            change: function() {
+                this.value = this.value.replace(/\s/g, "");
+            }
+        });
+    </script>
   </body>
 </html>
