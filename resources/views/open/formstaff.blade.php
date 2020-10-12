@@ -202,6 +202,13 @@
                 <option value="Others - TNB Staff">Others - TNB Staff</option> --}}
             </select>
 
+            <h6>Lokasi Bekerja <span style="color: red;">*</span></h6>
+            <select class="form-control" name="lokasi" required>
+                <option value="">Pilih...</option>
+                <option value="WFH">Work From Home</option>
+                <option value="WFO">Work From Office</option>
+            </select>
+
             <br>
             <h4>Status Kesihatan / Health Status</h4>
             <p class="col-mb-2">Tandakan "YA" atau "TIDAK" jika anda mempunyai gejala-gejala dibawah</p>

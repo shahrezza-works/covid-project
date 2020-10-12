@@ -54,11 +54,24 @@
             <h3 class="text-grey">{{ $waktu_pendaftaran }}</h3>
 
             <h4 class="mt-4">Lokasi:</h4>
-            <h3 class="text-grey">{{ $nama_premis }}</h3>
-            @if (!empty($nama_bangunan))
-            <h3 class="text-grey">{{ $nama_bangunan }}</h3>
+            @if (!empty($_GET['lokasi']))
+                @if ($_GET['lokasi'] == 'WFO')
+                    <h3 class="text-grey">{{ $nama_premis }}</h3>
+                    @if (!empty($nama_bangunan))
+                    <h3 class="text-grey">{{ $nama_bangunan }}</h3>
+                    @endif
+                    <h3 class="text-grey">{{ $kawasan }}</h3>
+                @else
+                    <h3 class="text-grey">Work From Home</h3>
+                @endif
+            @else
+                <h3 class="text-grey">{{ $nama_premis }}</h3>
+                @if (!empty($nama_bangunan))
+                <h3 class="text-grey">{{ $nama_bangunan }}</h3>
+                @endif
+                <h3 class="text-grey">{{ $kawasan }}</h3>
             @endif
-            <h3 class="text-grey">{{ $kawasan }}</h3>
+            
 
             @if (!empty($no_tel))
             <h4 class="mt-4">Nombor telefon yang didaftarkan:</h4>

@@ -177,6 +177,7 @@ class FormController extends Controller
         $nama = $request->input('nama');
         $no_pekerja = strtoupper($request->input('no_pekerja'));
         $jabatan = $request->input('jabatan');
+        $lokasi = $request->input('lokasi');
 
         $demam = $request->input('demam');
         $selsema = $request->input('selsema');
@@ -209,6 +210,7 @@ class FormController extends Controller
                 'nama' => $nama,
                 'no_pekerja' => $no_pekerja,
                 'jabatan' => $jabatan,
+                'lokasi' => $lokasi,
                 'demam' => $demam,
                 'selsema' => $selsema,
                 'batuk' => $batuk,
@@ -235,7 +237,7 @@ class FormController extends Controller
         }
 
         if($record){
-            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.$danger.'&clockin='.urlencode($clockin))
+            return redirect('/form/receipt/staff/summary?loc='.$location_id.'&t='.time().'&p='.urlencode($no_pekerja).'&alert='.$danger.'&clockin='.urlencode($clockin).'&lokasi='.urlencode($lokasi))
                 ->withCookie(cookie()->forever('nama', $nama))
                 ->withCookie(cookie()->forever('no_pekerja', $no_pekerja))
                 ->withCookie(cookie()->forever('jabatan', $jabatan))
@@ -295,6 +297,7 @@ class FormController extends Controller
         $time = $request->get('t');
         $no_pekerja = $request->get('p');
         $alert = $request->get('alert');
+        $lokasi = $request->get('lokasi');
 
         if(empty($location_id) || empty($time)){
             return view('open.errorsubmit');
@@ -314,6 +317,7 @@ class FormController extends Controller
         $variables['waktu_pendaftaran'] = date('d M Y (h:i a)', $time);
         $variables['no_tel'] = '';
         $variables['no_pekerja'] = $no_pekerja;
+        $variables['lokasi'] = $lokasi;
         
         return view('open.success', $variables);
     }
