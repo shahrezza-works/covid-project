@@ -276,6 +276,7 @@ class FormController extends Controller
 
         $variables['nama'] = $record->nama;
         $variables['time_clockout'] = $clockout;
+        $variables['date'] = $date;
 
         // echo '<pre>';
         // var_dump($affected);

@@ -118,6 +118,8 @@
         <center>
             <h4>Nama / Name:</h4>
             <h4><b>{{ strtoupper($nama) }}</b></h4>
+            <h4>Tarikh / Date:</h4>
+            <h4><b>{{ date('d M Y', strtotime($date)) }}</b></h4>
             <h4>Masa Clock Out / Time Clock Out:</h4>
             <h4><b>{{ date('h:i A', strtotime($time_clockout)) }}</b></h4>
             <h4 class="mb-4">Berjaya untuk Clock Out. <br><i>Successful to clock out.</i></h4>
