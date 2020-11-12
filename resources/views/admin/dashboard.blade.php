@@ -61,7 +61,7 @@
     </div>
 
 </div>
-<div class="row">
+{{-- <div class="row">
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
@@ -71,14 +71,14 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 
 @section('scripts')
-    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    {{-- <script src="https://code.highcharts.com/highcharts.src.js"></script> --}}
 
-    <script>
+    {{-- <script>
         Highcharts.chart('container-chart', {
             chart: {
                 type: 'column'
@@ -128,5 +128,5 @@
 
             }]
         });
-    </script>
+    </script> --}}
 @endsection
