@@ -255,7 +255,7 @@
 
             <hr>
 
-            <h6 class="mt-4">Sakit-sakit Sendi / Join Pain ? <span style="color: red;">*</span></h6>
+            <h6 class="mt-4">Sakit-sakit Sendi / Joint Pain ? <span style="color: red;">*</span></h6>
             <div class="mb-4">
                 <input class="radio-setting" type="radio" name="sakit_sendi" value="1" required> YA
             </div>
