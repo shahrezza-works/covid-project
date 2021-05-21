@@ -312,6 +312,18 @@
                 <input class="radio-setting" type="radio" name="deklarasi_3" value="0" required> TIDAK
             </div>
 
+            <hr>
+
+            <h6 class="mb-2" style="line-height: 1.8;">
+            Adakah anda telah berdaftar untuk menerima vaksin COVID-19? Pendaftaran boleh dilakukan di aplikasi MySejahtera atau di <a href="https://www.vaksincovid.gov.my" target="_blank">www.vaksincovid.gov.my</a>
+            </h6>
+            <div class="mb-4">
+                <input class="radio-setting" type="radio" name="vaksin" value="1" required> YA
+            </div>
+            <div>
+                <input class="radio-setting" type="radio" name="vaksin" value="0" required> TIDAK
+            </div>
+
             @if ($type == 1)
             <br>
             <h5 class="mt-4">Suhu / Temperature <span style="color: red;">*</span></h5>
