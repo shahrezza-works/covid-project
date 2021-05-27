@@ -273,6 +273,18 @@
                 <input class="radio-setting" type="radio" name="deria_rasa" value="0" required> TIDAK
             </div>
 
+            <hr>
+
+            <h6 class="mb-2" style="line-height: 1.8;">
+            Adakah anda sedang hamil? 
+            </h6>
+            <div class="mb-4">
+            <input class="radio-setting" type="radio" name="hamil" value="1" required> YA
+            </div>      
+            <div>
+                <input class="radio-setting" type="radio" name="hamil" value="0" checked="checked" required > TIDAK
+            </div>
+
             <br>
             <h4>Deklarasi / Declaration</h4>
             <p class="mb-2">Anda diminta untuk menjawab "YA" atau "TIDAK" dalam borang deklarasi di bawah</p>
@@ -339,7 +351,7 @@
         {{-- <h6>Nombor Telefon / Mobile Number  <span style="color: red;">*</span></h6>
         <input type="text" name="no_tel" minlength="10" maxlength="20" required> --}}
 
-        
+       
         
         <p class="mt-2">Dengan ini, saya mengakui bahawa butiran yang diisi adalah betul dan tepat. <span style="color: red;">*</span></p>
         <p class="mt-2">I hereby acknowledge that the information given in this form is correct and accurate.</p>

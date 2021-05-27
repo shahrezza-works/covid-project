@@ -193,6 +193,7 @@ class FormController extends Controller
         // ALTER TABLE respon_staff
 	    // ADD COLUMN vaksin INT(2) DEFAULT 0 AFTER deklarasi_3;
         $vaksin = $request->input('vaksin');
+        $hamil = $request->input('hamil');
 
         $suhu = $request->input('suhu');
         $agree = $request->input('agree');
@@ -225,6 +226,7 @@ class FormController extends Controller
                 'deklarasi_2' => $deklarasi_2,
                 'deklarasi_3' => $deklarasi_3,
                 'vaksin' => $vaksin,
+                'hamil' => $hamil,
                 'agree' => $agree,
                 'suhu' => $suhu,
                 'clockin' => $clockin,
