@@ -11,6 +11,8 @@ use App\Modal\Jabatan;
 use App\Modal\Respon_staff;
 use App\Modal\Respon_kontraktor;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class FormController extends Controller
 {
@@ -35,7 +37,7 @@ class FormController extends Controller
         // exit;
         return view('open.form', $variables);
     }
-
+    
     public function submit($location_id, Request $request)
     {
         // var_dump($location_id);
@@ -178,6 +180,9 @@ class FormController extends Controller
         $no_pekerja = strtoupper($request->input('no_pekerja'));
         $jabatan = $request->input('jabatan');
         $lokasi = $request->input('lokasi');
+        $alamat1 = $request->input('alamat1');
+        $alamat2 = $request->input('alamat2');
+        $negeri = $request->input('negeri');
 
         $demam = $request->input('demam');
         $selsema = $request->input('selsema');
@@ -185,6 +190,7 @@ class FormController extends Controller
         $sesak_nafas = $request->input('sesak_nafas');
         $sakit_sendi = $request->input('sakit_sendi');
         $deria_rasa = $request->input('deria_rasa');
+        $hamil = $request->input('hamil');
 
         $deklarasi_1 = $request->input('deklarasi_1');
         $deklarasi_2 = $request->input('deklarasi_2');
@@ -193,7 +199,11 @@ class FormController extends Controller
         // ALTER TABLE respon_staff
 	    // ADD COLUMN vaksin INT(2) DEFAULT 0 AFTER deklarasi_3;
         $vaksin = $request->input('vaksin');
-        $hamil = $request->input('hamil');
+        $dos1 = $request->input('dos1');
+        $dos2 = $request->input('dos2');
+        $pusat_vaksin1 = $request->input('pusat_vaksin1');
+        $pusat_vaksin2 = $request->input('pusat_vaksin2');
+
 
         $suhu = $request->input('suhu');
         $agree = $request->input('agree');
@@ -216,17 +226,24 @@ class FormController extends Controller
                 'no_pekerja' => $no_pekerja,
                 'jabatan' => $jabatan,
                 'lokasi' => $lokasi,
+                'alamat1' => $alamat1,
+                'alamat2' => $alamat2,
+                'negeri' => $negeri,
                 'demam' => $demam,
                 'selsema' => $selsema,
                 'batuk' => $batuk,
                 'sesak_nafas' => $sesak_nafas,
                 'sakit_sendi' => $sakit_sendi,
+                'hamil' => $hamil,
                 'deria_rasa' => $deria_rasa,
                 'deklarasi_1' => $deklarasi_1,
                 'deklarasi_2' => $deklarasi_2,
                 'deklarasi_3' => $deklarasi_3,
                 'vaksin' => $vaksin,
-                'hamil' => $hamil,
+                'dos1' => $dos1,
+                'dos2' => $dos2,
+                'pusat_vaksin1' => $pusat_vaksin1,
+                'pusat_vaksin2' => $pusat_vaksin2,
                 'agree' => $agree,
                 'suhu' => $suhu,
                 'clockin' => $clockin,
@@ -248,6 +265,11 @@ class FormController extends Controller
                 ->withCookie(cookie()->forever('nama', $nama))
                 ->withCookie(cookie()->forever('no_pekerja', $no_pekerja))
                 ->withCookie(cookie()->forever('jabatan', $jabatan))
+                ->withCookie(cookie()->forever('vaksin', $vaksin))
+                ->withCookie(cookie()->forever('dos1', $dos1))
+                ->withCookie(cookie()->forever('dos2', $dos2))
+                ->withCookie(cookie()->forever('pusat_vaksin1', $pusat_vaksin1))
+                ->withCookie(cookie()->forever('pusat_vaksin2', $pusat_vaksin2))
                 ;
         }else{
             return view('open.errorsubmit');
