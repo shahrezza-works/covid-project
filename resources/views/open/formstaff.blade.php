@@ -177,7 +177,7 @@
 
     <div class="testbox">
         <form action="/form/staff/submit/{{ md5($location_id) }}" method="POST">
-            <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-bottom:10px;" width="300px">
+            <img src="/assets/images/site-logo.svg" alt="Company Logo" style="margin-bottom:10px;" width="300px">
             @csrf
             <input type="hidden" name="clockin" value="{{ date('H:i:s') }}">
             <input type="hidden" name="lid" value="{{ md5($location_id) }}">
@@ -498,16 +498,6 @@
                 $('.alamat-whb').removeAttr('required');
             }
         });
-
-
-        // $("#vaksin_yes").change(function() {
-        //     if ($(this).is(":checked")==true) {
-        //         $(".status_vaksin").show();
-        //     } else {
-        //         $(".status_vaksin").hide();
-        //     };
-        // });
-
 
         $(".vaksin").change(function() {
             if ($(this).val() == '1')
