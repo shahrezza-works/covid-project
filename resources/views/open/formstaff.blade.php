@@ -500,21 +500,28 @@
         });
 
 
-        $("#vaksin_yes").change(function() {
-            if ($(this).is(":checked")==true) {
-                $(".status_vaksin").show();
-            } else {
-                $(".status_vaksin").hide();
-            };
+        // $("#vaksin_yes").change(function() {
+        //     if ($(this).is(":checked")==true) {
+        //         $(".status_vaksin").show();
+        //     } else {
+        //         $(".status_vaksin").hide();
+        //     };
+        // });
+
+
+        $(".vaksin").change(function() {
+            if ($(this).val() == '1')
+                $('.status_vaksin').show();
+            else
+                $('.status_vaksin').hide();
         });
 
-
-        // $(".vaksin").change(function() {
-        //     if ($(this).val() == '1')
-        //         $('.status_vaksin').show();
-        //     else
-        //         $('.status_vaksin').hide();
-        // });
+        $(document).ready(function() {
+            if ($("#vaksin_yes").is(":checked")) {
+                //its checked
+                $(".status_vaksin").show();
+            };
+        });
     </script>
 </body>
 
