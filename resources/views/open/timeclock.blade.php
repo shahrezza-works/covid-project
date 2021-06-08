@@ -119,7 +119,7 @@
             <input type="hidden" name="clockout" value="{{ date('H:i:s') }}">
             <div class="row">
                 <div class="col-12">
-                    <img src="https://tnbilsas.com.my/wp-content/uploads/2019/09/ilsas-logo.png" alt="Company Logo" style="margin-bottom:10px;" width="300px">
+                <img src="/assets/images/site-logo.svg" alt="Company Logo" style="margin-bottom:10px;" width="300px">
                 </div>
                 @csrf
                 
