@@ -62,7 +62,7 @@
                     @endif
                     <h3 class="text-grey">{{ $kawasan }}</h3>
                 @elseif ($_GET['lokasi'] == 'WHB')
-                    <h3 class="text-grey">Work Home Base / TNB Premise</h3>    
+                    <h3 class="text-grey">On-Site / TNB Premise</h3>    
                 @else
                     <h3 class="text-grey">Work From Home</h3>
                 @endif

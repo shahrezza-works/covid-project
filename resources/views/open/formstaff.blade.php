@@ -251,7 +251,8 @@
                     <option value="">Pilih...</option>
                     <option value="WFH">Work From Home</option>
                     <option value="WFO">Work From Office</option>
-                    <option value="WHB">Work Home Base / TNB Premise</option>
+                    <option value="WHB">On-Site / TNB Premise</option>
+                    <!-- WHB is value for 'work home base' has been changed to On-Site -->
                 </select>
 
                 <div class="alamat-whb" style="display:none;">
