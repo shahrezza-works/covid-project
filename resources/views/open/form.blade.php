@@ -174,7 +174,7 @@
             </li>
         </ul>
         
-        <table style="width: 0;">
+        <table class="col-md-4">
             <tr>
                 <td><input type="radio" name="verify" value="0" style="width: 5%;" required>Tidak / No</td>
             </tr>
