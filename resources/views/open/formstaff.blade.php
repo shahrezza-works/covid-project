@@ -442,6 +442,24 @@
                             <input class="form-control" type="date" name="dos2" value="{{ Cookie::get('dos2') }}">
 
                         </div>
+
+                        <div class="mb-4">
+                            <h5>Janji Temu Dos Penggalak / Booster Appointment</h5>
+                            <h6>Lokasi Pemberian Penggalak / First Booster Shot Location</h6>
+                            <input class="form-control" type="text" name="pusat_booster" placeholder="Kompleks Sukan Bukit Jalil" value="{{ Cookie::get('pusat_booster') }}">
+
+                            <h6>Tarikh Suntikan Penggalak Pertama/ Date of First Booster Shot</h6>
+                            <input class="form-control" type="date" name="booster1" value="{{ Cookie::get('booster1') }}">
+                            
+                            <h6>Jenis Dos Penggalak / Booster Type</h6>
+                            <select id="jenis_booster" class="form-control" name="jenis_booster">
+                                <option value="">Pilih...</option>
+                                <option value="AAZ" {{ Cookie::get('jenis_booster') == 'AAZ' ? 'selected' : '' }}>AstraZeneca</option>
+                                <option value="PFIZER" {{ Cookie::get('jenis_booster') == 'PFIZER' ? 'selected' : '' }}>Pfizer-BioNTech</option>
+                                <option value="SINOVAC" {{ Cookie::get('jenis_booster') == 'SINOVAC' ? 'selected' : '' }}>Sinovac</option>
+                            </select>
+
+                        </div>
                     </div>
                     <div class="mb-4">
 
