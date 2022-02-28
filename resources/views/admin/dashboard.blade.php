@@ -33,6 +33,7 @@
             <div class="card-body">
                 <div class="w-100">
                     <h6>Jumlah Daftar Masuk</h6>
+                    <h6>Bagi Tahun 2022</h6>
                 </div>
                 <div class="w-50 text-left">
                     <i class="fas fa-map-marked fa-3x" style="color: salmon"></i>
@@ -44,7 +45,7 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    {{-- <div class="col-md-3">
         <div class="card">
             <div class="card-body">
                 <div class="w-100">
@@ -58,7 +59,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 </div>
 {{-- <div class="row">
