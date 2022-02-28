@@ -205,6 +205,8 @@ class FormController extends Controller
         $pusat_vaksin1 = $request->input('pusat_vaksin1');
         $pusat_vaksin2 = $request->input('pusat_vaksin2');
         $pusat_booster = $request->input('pusat_booster');
+        $jenis_vaksin_1 = $request->input('jenis_vaksin_1');
+        $jenis_vaksin_2 = $request->input('jenis_vaksin_2');
         $jenis_booster = $request->input('jenis_booster');
 
         $suhu = $request->input('suhu');
@@ -248,6 +250,8 @@ class FormController extends Controller
                 'pusat_vaksin1' => $pusat_vaksin1,
                 'pusat_vaksin2' => $pusat_vaksin2,
                 'pusat_booster' => $pusat_booster,
+                'jenis_vaksin_1' => $jenis_vaksin_1,
+                'jenis_vaksin_2' => $jenis_vaksin_2,
                 'jenis_booster' => $jenis_booster,
                 'agree' => $agree,
                 'suhu' => $suhu,
@@ -278,6 +282,8 @@ class FormController extends Controller
                 ->withCookie(cookie()->forever('pusat_vaksin2', $pusat_vaksin2))
                 ->withCookie(cookie()->forever('pusat_booster', $pusat_booster))
                 ->withCookie(cookie()->forever('jenis_booster', $jenis_booster))
+                ->withCookie(cookie()->forever('jenis_vaksin_1', $jenis_vaksin_1))
+                ->withCookie(cookie()->forever('jenis_vaksin_2', $jenis_vaksin_2))
                 ;
         }else{
             return view('open.errorsubmit');
