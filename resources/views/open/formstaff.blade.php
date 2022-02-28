@@ -431,6 +431,17 @@
                             <h6>Tarikh Dos Pertama / Date of First Dose</h6>
                             <input class="form-control" type="date" name="dos1" value="{{ Cookie::get('dos1') }}">
 
+                            <h6>Jenis Vaksin / Vaccine Type</h6>
+                            <select id="jenis_vaksin_1" class="form-control" name="jenis_vaksin_1">
+                                <option value="">Pilih...</option>
+                                <option value="AAZ" {{ Cookie::get('jenis_vaksin_1') == 'AAZ' ? 'selected' : '' }}>AstraZeneca</option>
+                                <option value="PFIZER" {{ Cookie::get('jenis_vaksin_1') == 'PFIZER' ? 'selected' : '' }}>Pfizer-BioNTech</option>
+                                <option value="SINOVAC" {{ Cookie::get('jenis_vaksin_1') == 'SINOVAC' ? 'selected' : '' }}>Sinovac</option>
+                                <option value="SINOPHARM" {{ Cookie::get('jenis_vaksin_1') == 'SINOPHARM' ? 'selected' : '' }}>Sinopharm - Covilo</option>
+                                <option value="MODERNA" {{ Cookie::get('jenis_vaksin_1') == 'MODERNA' ? 'selected' : '' }}>Moderna - Spikevax</option>
+                                <option value="CANSINO" {{ Cookie::get('jenis_vaksin_1') == 'CANSINO' ? 'selected' : '' }}>CanSino - Convidecia</option>
+                                <option value="JOHNSON" {{ Cookie::get('jenis_vaksin_1') == 'JOHNSON' ? 'selected' : '' }}>Johnson & Johnson - Jansen</option>
+                            </select>
                         </div>
 
                         <div class="mb-4">
@@ -441,6 +452,17 @@
                             <h6>Tarikh Dos Kedua / Date of Second Dose</h6>
                             <input class="form-control" type="date" name="dos2" value="{{ Cookie::get('dos2') }}">
 
+                            <h6>Jenis Vaksin / Vaccine Type</h6>
+                            <select id="jenis_vaksin_2" class="form-control" name="jenis_vaksin_2">
+                                <option value="">Pilih...</option>
+                                <option value="AAZ" {{ Cookie::get('jenis_vaksin_2') == 'AAZ' ? 'selected' : '' }}>AstraZeneca</option>
+                                <option value="PFIZER" {{ Cookie::get('jenis_vaksin_2') == 'PFIZER' ? 'selected' : '' }}>Pfizer-BioNTech</option>
+                                <option value="SINOVAC" {{ Cookie::get('jenis_vaksin_2') == 'SINOVAC' ? 'selected' : '' }}>Sinovac - Coronavac</option>
+                                <option value="SINOPHARM" {{ Cookie::get('jenis_vaksin_2') == 'SINOPHARM' ? 'selected' : '' }}>Sinopharm - Covilo</option>
+                                <option value="MODERNA" {{ Cookie::get('jenis_vaksin_2') == 'MODERNA' ? 'selected' : '' }}>Moderna - Spikevax</option>
+                                <option value="CANSINO" {{ Cookie::get('jenis_vaksin_2') == 'CANSINO' ? 'selected' : '' }}>CanSino - Convidecia</option>
+                                <option value="JOHNSON" {{ Cookie::get('jenis_vaksin_2') == 'JOHNSON' ? 'selected' : '' }}>Johnson & Johnson - Jansen</option>
+                            </select>
                         </div>
 
                         <div class="mb-4">
@@ -457,8 +479,11 @@
                                 <option value="AAZ" {{ Cookie::get('jenis_booster') == 'AAZ' ? 'selected' : '' }}>AstraZeneca</option>
                                 <option value="PFIZER" {{ Cookie::get('jenis_booster') == 'PFIZER' ? 'selected' : '' }}>Pfizer-BioNTech</option>
                                 <option value="SINOVAC" {{ Cookie::get('jenis_booster') == 'SINOVAC' ? 'selected' : '' }}>Sinovac</option>
+                                <option value="SINOPHARM" {{ Cookie::get('jenis_booster') == 'SINOPHARM' ? 'selected' : '' }}>Sinopharm - Covilo</option>
+                                <option value="MODERNA" {{ Cookie::get('jenis_booster') == 'MODERNA' ? 'selected' : '' }}>Moderna - Spikevax</option>
+                                <option value="CANSINO" {{ Cookie::get('jenis_booster') == 'CANSINO' ? 'selected' : '' }}>CanSino - Convidecia</option>
+                                <option value="JOHNSON" {{ Cookie::get('jenis_booster') == 'JOHNSON' ? 'selected' : '' }}>Johnson & Johnson - Jansen</option>
                             </select>
-
                         </div>
                     </div>
                     <div class="mb-4">
