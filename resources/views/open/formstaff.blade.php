@@ -436,7 +436,7 @@
                                 <option value="">Pilih...</option>
                                 <option value="AAZ" {{ Cookie::get('jenis_vaksin_1') == 'AAZ' ? 'selected' : '' }}>AstraZeneca</option>
                                 <option value="PFIZER" {{ Cookie::get('jenis_vaksin_1') == 'PFIZER' ? 'selected' : '' }}>Pfizer-BioNTech</option>
-                                <option value="SINOVAC" {{ Cookie::get('jenis_vaksin_1') == 'SINOVAC' ? 'selected' : '' }}>Sinovac</option>
+                                <option value="SINOVAC" {{ Cookie::get('jenis_vaksin_1') == 'SINOVAC' ? 'selected' : '' }}>Sinovac - Coronavac</option>
                                 <option value="SINOPHARM" {{ Cookie::get('jenis_vaksin_1') == 'SINOPHARM' ? 'selected' : '' }}>Sinopharm - Covilo</option>
                                 <option value="MODERNA" {{ Cookie::get('jenis_vaksin_1') == 'MODERNA' ? 'selected' : '' }}>Moderna - Spikevax</option>
                                 <option value="CANSINO" {{ Cookie::get('jenis_vaksin_1') == 'CANSINO' ? 'selected' : '' }}>CanSino - Convidecia</option>
@@ -478,7 +478,7 @@
                                 <option value="">Pilih...</option>
                                 <option value="AAZ" {{ Cookie::get('jenis_booster') == 'AAZ' ? 'selected' : '' }}>AstraZeneca</option>
                                 <option value="PFIZER" {{ Cookie::get('jenis_booster') == 'PFIZER' ? 'selected' : '' }}>Pfizer-BioNTech</option>
-                                <option value="SINOVAC" {{ Cookie::get('jenis_booster') == 'SINOVAC' ? 'selected' : '' }}>Sinovac</option>
+                                <option value="SINOVAC" {{ Cookie::get('jenis_booster') == 'SINOVAC' ? 'selected' : '' }}>Sinovac - Coronavac</option>
                                 <option value="SINOPHARM" {{ Cookie::get('jenis_booster') == 'SINOPHARM' ? 'selected' : '' }}>Sinopharm - Covilo</option>
                                 <option value="MODERNA" {{ Cookie::get('jenis_booster') == 'MODERNA' ? 'selected' : '' }}>Moderna - Spikevax</option>
                                 <option value="CANSINO" {{ Cookie::get('jenis_booster') == 'CANSINO' ? 'selected' : '' }}>CanSino - Convidecia</option>
