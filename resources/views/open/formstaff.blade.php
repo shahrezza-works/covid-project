@@ -392,7 +392,7 @@
 
                     <hr>
 
-                    <h6 class="mb-2" style="line-height: 1.8;">Adakah anda kontak rapat dengan seseorang yang positif COVID-19 dalam tempoh 14 hari yang lepas? <span style="color: red;">*</span>
+                    <h6 class="mb-2" style="line-height: 1.8;">Adakah anda kontak rapat atau yang disyaki COVID-19 dan masih berada dalam tempoh kuarantin yang ditetapkan oleh KKM? <span style="color: red;">*</span>
                     </h6>
                     <div class="mb-4">
                         <input class="radio-setting" type="radio" name="deklarasi_3" value="1" required> YA
